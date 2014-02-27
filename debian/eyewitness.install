@@ -1,0 +1,4 @@
+debian/helper-script/eyewitness usr/bin/
+*.py usr/share/eyewitness/
+setup usr/share/eyewitness/
+*.txt usr/share/eyewitness/
