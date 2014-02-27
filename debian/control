@@ -10,7 +10,7 @@ Vcs-Browser: http://git.kali.org/gitweb?p=packages/eyewitness.git;a=summary
 
 Package: eyewitness
 Architecture: all
-Depends: ${misc:Depends}, python, python-ghost
+Depends: ${misc:Depends}, python-support, python, python-ghost
 Description: Rapid web application triage tool
  EyeWitness is designed to take screenshots of websites, provide some server 
  header info, and identify default credentials if possible.
