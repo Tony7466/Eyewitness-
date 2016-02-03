@@ -1,3 +1,9 @@
+eyewitness (2.1.1-0kali1) kali-dev; urgency=medium
+
+  * Import new upstream release 
+
+ -- Sophie Brun <sophie@freexian.com>  Wed, 03 Feb 2016 16:46:24 +0100
+
 eyewitness (1.0-0kali2) kali-dev; urgency=medium
 
   * Drop dependency on python-support (obsolete package)
