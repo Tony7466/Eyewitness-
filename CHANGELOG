@@ -1,8 +1,9 @@
-[2.27.2014]
-    Modified..: Created a more robust setup script.
-    Modified..: Cleaned up setup script support for Kali.
-    Added.....: Setup support for Debian 7+.
+[10.3.2015]
+    Updated...: User output changed to reflect the fact EyeWitness scans services, not hosts.  Thanks @digininja
+    Updated...: Create targets now correctly parses for rdp, vnc, and web, not only web.  Thanks @digininja for letting us know!
 
-[2.26.2014]
-    Modified..: EyeWitness report has been modified to prevent XSS execution for malicious scripts embedded within server response information.  Thanks to Ian Gallagher (craSH) for letting me know and also submitting a patch.  Totally awesome man.
-    Released..: EyeWitness Initial 1.0 Release
+[6.25.2015]
+    Fixed.....: Fixed search page links
+
+[6.15.2015]
+    Released..: EyeWitness 2.0 released!

@@ -1,1 +1,4 @@
-.pc
+*.pyc
+/EyeWitness.sublime-workspace
+/EyeWitness.sublime-project
+/setup.cfg
