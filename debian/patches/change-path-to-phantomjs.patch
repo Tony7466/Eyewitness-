@@ -1,0 +1,12 @@
+--- a/modules/phantomjs_module.py
++++ b/modules/phantomjs_module.py
+@@ -37,8 +37,7 @@ def create_driver(cli_parsed, user_agent
+         capabilities['phantomjs.page.customHeaders.Host'] = cli_parsed.vhost_name
+ 
+     service_args = []
+-    phantomjs_path = os.path.join(
+-        os.path.dirname(os.path.realpath(__file__)), '..', 'bin', 'phantomjs')
++    phantomjs_path = '/usr/bin/phantomjs'
+ 
+     # Set up our user agent if necessary
+     if cli_parsed.user_agent is not None:

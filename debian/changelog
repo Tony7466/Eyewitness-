@@ -1,8 +1,8 @@
-eyewitness (2.1.1-0kali1) kali-dev; urgency=medium
+eyewitness (2.2-0kali1) kali-dev; urgency=medium
 
-  * Import new upstream release 
+  * Import new upstream release
 
- -- Sophie Brun <sophie@freexian.com>  Wed, 03 Feb 2016 16:46:24 +0100
+ -- Sophie Brun <sophie@freexian.com>  Tue, 27 Sep 2016 15:16:41 +0200
 
 eyewitness (1.0-0kali2) kali-dev; urgency=medium
 

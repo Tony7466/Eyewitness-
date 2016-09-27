@@ -3,7 +3,7 @@ Upstream-Name: eyewitness
 Source: https://github.com/ChrisTruncer/EyeWitness
 
 Files: *
-Copyright: Christopher Truncer <eyewitness@christophertruncer.com
+Copyright: Christopher Truncer <eyewitness@christophertruncer.com>
 License: GPL-3+
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

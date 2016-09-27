@@ -3,14 +3,27 @@ Section: utils
 Priority: optional
 Maintainer: Devon Kearns <dookie@kali.org>
 Build-Depends: debhelper (>= 9)
-Standards-Version: 3.9.3
+Standards-Version: 3.9.8
 Homepage: https://www.christophertruncer.com/eyewitness-triage-tool/
 Vcs-Git: git://git.kali.org/packages/eyewitness.git
-Vcs-Browser: http://git.kali.org/gitweb?p=packages/eyewitness.git;a=summary
+Vcs-Browser: http://git.kali.org/gitweb/?p=packages/eyewitness.git;a=summary
 
 Package: eyewitness
 Architecture: all
-Depends: ${misc:Depends}, python, python-ghost
+Depends: ${misc:Depends},
+         python,
+         python-bs4,
+         python-fuzzywuzzy,
+         python-levenshtein,
+         python-netaddr,
+         python-pyasn1,
+         python-pyvirtualdisplay,
+         python-qt4reactor,
+         python-rdpy,
+         python-selenium,
+         firefoxdriver,
+         phantomjs (>= 2.1.1),
+         xvfb
 Description: Rapid web application triage tool
  EyeWitness is designed to take screenshots of websites, provide some server 
  header info, and identify default credentials if possible.
@@ -22,4 +35,4 @@ Description: Rapid web application triage tool
  line, nmap xml output, or nessus xml output. The -t (timeout) flag is 
  completely optional, and lets you provice the max time to wait when trying to 
  render and screenshot a web page. The --open flag, which is optional, will open 
- the URL in a new tab within iceweasel.
+ the URL in a new tab within Firefox.
