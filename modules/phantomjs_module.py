@@ -32,6 +32,10 @@ def create_driver(cli_parsed, user_agent=None):
         webdriver: PhantomJS Webdriver
     """
     capabilities = DesiredCapabilities.PHANTOMJS
+
+    if cli_parsed.vhost_name:
+        capabilities['phantomjs.page.customHeaders.Host'] = cli_parsed.vhost_name
+
     service_args = []
     phantomjs_path = os.path.join(
         os.path.dirname(os.path.realpath(__file__)), '..', 'bin', 'phantomjs')
@@ -52,7 +56,7 @@ def create_driver(cli_parsed, user_agent=None):
 
     # PhantomJS resource timeout
     capabilities[
-        'phantomjs.page.settings.resourceTimeout'] = cli_parsed.t * 1000
+        'phantomjs.page.settings.resourceTimeout'] = cli_parsed.timeout * 1000
     # Basic auth settings
     capabilities['phantomjs.page.settings.userName'] = 'none'
     capabilities['phantomjs.page.settings.password'] = 'none'
@@ -70,7 +74,7 @@ def create_driver(cli_parsed, user_agent=None):
                 service_log_path=log_path, executable_path=phantomjs_path)
             # This is the default size from the firefox driver
             driver.set_window_size(1200, 675)
-            driver.set_page_load_timeout(cli_parsed.t)
+            driver.set_page_load_timeout(cli_parsed.timeout)
             return driver
         except WebDriverException:
             # print 'WebDriverException, retrying'

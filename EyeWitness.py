@@ -43,6 +43,8 @@ except ImportError:
     print '[*] Please run the script in the setup directory!'
     sys.exit()
 
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 multi_counter = 0
 multi_total = 0
@@ -72,7 +74,9 @@ def create_cli_parser():
     input_options = parser.add_argument_group('Input Options')
     input_options.add_argument('-f', metavar='Filename', default=None,
                                help='Line seperated file containing URLs to \
-                            capture, Nmap XML output, or a .nessus file')
+                                capture')
+    input_options.add_argument('-x', metavar='Filename.xml', default=None,
+                               help='Nmap XML or .Nessus file')
     input_options.add_argument('--single', metavar='Single URL', default=None,
                                help='Single URL/Host to capture')
     input_options.add_argument('--createtargets', metavar='targetfilename.txt',
@@ -83,7 +87,7 @@ def create_cli_parser():
                             websites')
 
     timing_options = parser.add_argument_group('Timing Options')
-    timing_options.add_argument('-t', metavar='Timeout', default=7, type=int,
+    timing_options.add_argument('--timeout', metavar='Timeout', default=7, type=int,
                                 help='Maximum number of seconds to wait while\
                                  requesting a web page (Default: 7)')
     timing_options.add_argument('--jitter', metavar='# of Seconds', default=0,
@@ -124,6 +128,20 @@ def create_cli_parser():
     http_options.add_argument('--resolve', default=False,
                               action='store_true', help=("Resolve IP/Hostname"
                                                          " for targets"))
+    http_options.add_argument('--add-http-ports', default=[], 
+                              type=lambda s:[int(i) for i in s.split(",")],
+                              help=("Comma-seperated additional port(s) to assume "
+                              "are http (e.g. '8018,8028')"))
+    http_options.add_argument('--add-https-ports', default=[],
+                              type=lambda s:[int(i) for i in s.split(",")],
+                              help=("Comma-seperated additional port(s) to assume "
+                              "are https (e.g. '8018,8028')"))
+    http_options.add_argument('--prepend-https', default=False, action='store_true',
+                              help='Prepend http:\\\\ and https:\\\\ to URLs without either')
+    http_options.add_argument('--vhost-name', default=None,metavar='hostname', help='Hostname to use in Host header (headless + single mode only)')
+    http_options.add_argument(
+        '--active-scan', default=False, action='store_true',
+        help='Perform live login attempts to identify credentials or login pages.')
 
     resume_options = parser.add_argument_group('Resume Options')
     resume_options.add_argument('--resume', metavar='ew.db',
@@ -173,7 +191,7 @@ def create_cli_parser():
 
     args.log_file_path = os.path.join(args.d, 'logfile.log')
 
-    if args.f is None and args.single is None and args.resume is None:
+    if args.f is None and args.single is None and args.resume is None and args.x is None:
         print("[*] Error: You didn't specify a file! I need a file containing "
               "URLs!")
         parser.print_help()
@@ -187,6 +205,20 @@ def create_cli_parser():
 
     if all((args.web, args.headless)):
         print "[*] Error: Choose either web or headless"
+        parser.print_help()
+        sys.exit()
+
+    if args.vhost_name and not all((args.single, args.headless)):
+        print "[*] Error: vhostname can only be used in headless+single mode"
+        sys.exit()
+    
+    if args.proxy_ip is not None and args.proxy_port is None:
+        print "[*] Error: Please provide a port for the proxy!"
+        parser.print_help()
+        sys.exit()
+
+    if args.proxy_port is not None and args.proxy_ip is None:
+        print "[*] Error: Please provide an IP for the proxy!"
         parser.print_help()
         sys.exit()
 
@@ -218,9 +250,13 @@ def single_mode(cli_parsed):
 
     url = cli_parsed.single
     http_object = objects.HTTPTableObject()
+    if cli_parsed.active_scan:
+        http_object._active_scan = True
     http_object.remote_system = url
     http_object.set_paths(
         cli_parsed.d, 'baseline' if cli_parsed.cycle is not None else None)
+    if cli_parsed.active_scan:
+        http_object._active_scan = True
 
     web_index_head = create_web_index_head(cli_parsed.date, cli_parsed.time)
 
@@ -479,7 +515,7 @@ def multi_mode(cli_parsed):
                         target.remote_system, int(target.port),
                         rdp_module.RDPScreenShotFactory(
                             reactor, app, 1200, 800,
-                            target.screenshot_path, cli_parsed.t,
+                            target.screenshot_path, cli_parsed.timeout,
                             target, tdbm))
             reactor.runReturn()
             app.exec_()
@@ -539,7 +575,7 @@ if __name__ == "__main__":
         print 'Engine(s): {0}'.format(','.join(engines))
         print 'Threads: {0}'.format(cli_parsed.threads)
         print 'Output Directory: {0}'.format(cli_parsed.d)
-        print 'Timeout: {0}'.format(cli_parsed.t)
+        print 'Timeout: {0}'.format(cli_parsed.timeout)
         print ''
     else:
         create_folders_css(cli_parsed)
@@ -560,7 +596,7 @@ if __name__ == "__main__":
                     sys.exit()
         sys.exit()
 
-    if cli_parsed.f is not None:
+    if cli_parsed.f is not None or cli_parsed.x is not None:
         multi_mode(cli_parsed)
 
     print 'Finished in {0} seconds'.format(time.time() - start_time)
