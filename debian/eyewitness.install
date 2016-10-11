@@ -1,7 +1,9 @@
 debian/helper-script/eyewitness usr/bin/
 *.py usr/share/eyewitness/
 *.txt usr/share/eyewitness/
+build/*/rle.so usr/share/eyewitness/
 bin usr/share/eyewitness/
 modules usr/share/eyewitness/
+rdpy usr/share/eyewitness/
 setup usr/share/eyewitness/
 Windows usr/share/eyewitness/

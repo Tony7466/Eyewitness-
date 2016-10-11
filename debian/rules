@@ -1,4 +1,14 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ 
+	dh $@ --with python2
+
+override_dh_auto_build:
+	wget https://github.com/ChrisTruncer/rdpy/archive/master.tar.gz -O rdpy.tar.gz
+	tar xvfz rdpy.tar.gz
+	cp -r rdpy-master/* ./
+	dh_auto_build
+	rm -rf rdpy-master
+	rm rdpy.tar.gz
+
+override_dh_auto_install:

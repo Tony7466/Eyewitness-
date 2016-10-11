@@ -2,15 +2,16 @@ Source: eyewitness
 Section: utils
 Priority: optional
 Maintainer: Devon Kearns <dookie@kali.org>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9), wget, ca-certificates, python-all-dev, python-setuptools
 Standards-Version: 3.9.8
 Homepage: https://www.christophertruncer.com/eyewitness-triage-tool/
 Vcs-Git: git://git.kali.org/packages/eyewitness.git
 Vcs-Browser: http://git.kali.org/gitweb/?p=packages/eyewitness.git;a=summary
 
 Package: eyewitness
-Architecture: all
+Architecture: i386 amd64
 Depends: ${misc:Depends},
+         ${shlibs:Depends},
          python,
          python-bs4,
          python-fuzzywuzzy,
@@ -19,11 +20,15 @@ Depends: ${misc:Depends},
          python-pyasn1,
          python-pyvirtualdisplay,
          python-qt4reactor,
-         python-rdpy,
          python-selenium,
          firefoxdriver,
          phantomjs (>= 2.1.1),
-         xvfb
+         xvfb,
+# for python-rdpy:
+         python-openssl,
+         python-rsa,
+         python-service-identity,
+         python-twisted
 Description: Rapid web application triage tool
  EyeWitness is designed to take screenshots of websites, provide some server 
  header info, and identify default credentials if possible.

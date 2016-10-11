@@ -1,3 +1,11 @@
+eyewitness (2.2-0kali2) kali-dev; urgency=medium
+
+  * Include modified python-rdpy
+  * Build package only for i386 and amd64 (firefoxdriver doesn't exist for
+    other architectures)
+
+ -- Sophie Brun <sophie@freexian.com>  Mon, 10 Oct 2016 13:59:04 +0200
+
 eyewitness (2.2-0kali1) kali-dev; urgency=medium
 
   * Import new upstream release
