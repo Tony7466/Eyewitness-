@@ -79,9 +79,6 @@ def create_cli_parser():
                                help='Nmap XML or .Nessus file')
     input_options.add_argument('--single', metavar='Single URL', default=None,
                                help='Single URL/Host to capture')
-    input_options.add_argument('--createtargets', metavar='targetfilename.txt',
-                               default=None, help='Parses a .nessus or Nmap XML \
-                            file into a line-seperated list of URLs')
     input_options.add_argument('--no-dns', default=False, action='store_true',
                                help='Skip DNS resolution when connecting to \
                             websites')
@@ -96,6 +93,9 @@ def create_cli_parser():
     timing_options.add_argument('--threads', metavar='# of Threads', default=10,
                                 type=int, help='Number of threads to use while using\
                                 file based input')
+    timing_options.add_argument('--max-retries', default=1, metavar='Max retries on \
+                                a timeout'.replace('    ', ''), type=int,
+                                help='Max retries on timeouts')
 
     report_options = parser.add_argument_group('Report Output Options')
     report_options.add_argument('-d', metavar='Directory Name',
@@ -136,6 +136,10 @@ def create_cli_parser():
                               type=lambda s:[int(i) for i in s.split(",")],
                               help=("Comma-seperated additional port(s) to assume "
                               "are https (e.g. '8018,8028')"))
+    http_options.add_argument('--only-ports', default=[],
+                              type=lambda s:[int(i) for i in s.split(",")],
+                              help=("Comma-seperated list of exclusive ports to "
+                              "use (e.g. '80,8080')"))
     http_options.add_argument('--prepend-https', default=False, action='store_true',
                               help='Prepend http:\\\\ and https:\\\\ to URLs without either')
     http_options.add_argument('--vhost-name', default=None,metavar='hostname', help='Hostname to use in Host header (headless + single mode only)')
@@ -211,7 +215,7 @@ def create_cli_parser():
     if args.vhost_name and not all((args.single, args.headless)):
         print "[*] Error: vhostname can only be used in headless+single mode"
         sys.exit()
-    
+
     if args.proxy_ip is not None and args.proxy_port is None:
         print "[*] Error: Please provide a port for the proxy!"
         parser.print_help()
@@ -245,6 +249,10 @@ def single_mode(cli_parsed):
             display = Display(visible=0, size=(1920, 1080))
             display.start()
     elif cli_parsed.headless:
+        if not os.path.isfile('./bin/phantomjs'):
+            print(" [*] Error: You are missing your phantomjs binary!")
+            print(" [*] Please run the setup script!")
+            sys.exit(0)
         create_driver = phantomjs_module.create_driver
         capture_host = phantomjs_module.capture_host
 
@@ -300,6 +308,10 @@ def worker_thread(cli_parsed, targets, lock, counter, user_agent=None):
         create_driver = selenium_module.create_driver
         capture_host = selenium_module.capture_host
     elif cli_parsed.headless:
+        if not os.path.isfile('./bin/phantomjs'):
+            print(" [*] Error: You are missing your phantomjs binary!")
+            print(" [*] Please run the setup script!")
+            sys.exit(0)
         create_driver = phantomjs_module.create_driver
         capture_host = phantomjs_module.capture_host
     with lock:
@@ -543,10 +555,6 @@ if __name__ == "__main__":
     title_screen()
     cli_parsed = create_cli_parser()
     start_time = time.time()
-
-    if cli_parsed.createtargets:
-        target_creator(cli_parsed)
-        sys.exit()
 
     if cli_parsed.resume:
         print '[*] Loading Resume Data...'
