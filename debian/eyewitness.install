@@ -7,3 +7,4 @@ modules usr/share/eyewitness/
 rdpy usr/share/eyewitness/
 setup usr/share/eyewitness/
 Windows usr/share/eyewitness/
+geckodriver usr/bin

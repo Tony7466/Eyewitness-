@@ -21,7 +21,6 @@ Depends: ${misc:Depends},
          python-pyvirtualdisplay,
          python-qt4reactor,
          python-selenium,
-         firefoxdriver,
          phantomjs (>= 2.1.1),
          xvfb,
 # for python-rdpy:
