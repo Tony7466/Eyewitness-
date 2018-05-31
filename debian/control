@@ -3,42 +3,46 @@ Section: utils
 Priority: optional
 Maintainer: Kali Developers <devel@kali.org>
 Uploaders: Devon Kearns <dookie@kali.org>
-Build-Depends: debhelper (>= 11), wget, ca-certificates, python-all-dev, python-setuptools, dh-python
+Build-Depends: ca-certificates,
+               debhelper (>= 11),
+               dh-python,
+               python-all-dev,
+               python-setuptools,
+               wget
 Standards-Version: 4.1.4
 Homepage: https://www.christophertruncer.com/eyewitness-triage-tool/
 Vcs-Git: git://git.kali.org/packages/eyewitness.git
 Vcs-Browser: http://git.kali.org/gitweb/?p=packages/eyewitness.git;a=summary
 
 Package: eyewitness
-Architecture: i386 amd64
-Depends: ${misc:Depends},
-         ${shlibs:Depends},
-         ${python:Depends},
+Architecture: amd64 i386
+Depends: phantomjs (>= 2.1.1),
          python,
          python-bs4,
          python-fuzzywuzzy,
          python-levenshtein,
          python-netaddr,
+         python-openssl,
          python-pyasn1,
          python-pyvirtualdisplay,
          python-qt4reactor,
-         python-selenium,
-         phantomjs (>= 2.1.1),
-         xvfb,
-# for python-rdpy:
-         python-openssl,
          python-rsa,
+         python-selenium,
          python-service-identity,
-         python-twisted
+         python-twisted,
+         xvfb,
+         ${misc:Depends},
+         ${python:Depends},
+         ${shlibs:Depends}
 Description: Rapid web application triage tool
- EyeWitness is designed to take screenshots of websites, provide some server 
+ EyeWitness is designed to take screenshots of websites, provide some server
  header info, and identify default credentials if possible.
  .
- Inspiration came from Tim Tomes's PeepingTom Script. 
+ Inspiration came from Tim Tomes's PeepingTom Script.
  .
- EyeWitness is designed to run on Kali Linux. It will auto detect the file you 
- give it with the -f flag as either being a text file with URLs on each new 
- line, nmap xml output, or nessus xml output. The -t (timeout) flag is 
- completely optional, and lets you provice the max time to wait when trying to 
- render and screenshot a web page. The --open flag, which is optional, will open 
+ EyeWitness is designed to run on Kali Linux. It will auto detect the file you
+ give it with the -f flag as either being a text file with URLs on each new
+ line, nmap xml output, or nessus xml output. The -t (timeout) flag is
+ completely optional, and lets you provice the max time to wait when trying to
+ render and screenshot a web page. The --open flag, which is optional, will open
  the URL in a new tab within Firefox.
