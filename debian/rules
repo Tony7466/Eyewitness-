@@ -23,3 +23,6 @@ override_dh_auto_build:
 	rm $(filename)
 
 override_dh_auto_install:
+
+override_dh_install:
+	dh_install -Xgitignore
