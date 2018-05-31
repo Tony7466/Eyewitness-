@@ -1,3 +1,4 @@
 #!/bin/bash
 
-cd /usr/share/eyewitness/ && python EyeWitness.py "$@"
+cd /usr/share/eyewitness/
+exec python EyeWitness.py "$@"

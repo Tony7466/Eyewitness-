@@ -1,9 +1,10 @@
 Source: eyewitness
 Section: utils
 Priority: optional
-Maintainer: Devon Kearns <dookie@kali.org>
-Build-Depends: debhelper (>= 9), wget, ca-certificates, python-all-dev, python-setuptools
-Standards-Version: 3.9.8
+Maintainer: Kali Developers <devel@kali.org>
+Uploaders: Devon Kearns <dookie@kali.org>
+Build-Depends: debhelper (>= 11), wget, ca-certificates, python-all-dev, python-setuptools, dh-python
+Standards-Version: 4.1.4
 Homepage: https://www.christophertruncer.com/eyewitness-triage-tool/
 Vcs-Git: git://git.kali.org/packages/eyewitness.git
 Vcs-Browser: http://git.kali.org/gitweb/?p=packages/eyewitness.git;a=summary
@@ -12,6 +13,7 @@ Package: eyewitness
 Architecture: i386 amd64
 Depends: ${misc:Depends},
          ${shlibs:Depends},
+         ${python:Depends},
          python,
          python-bs4,
          python-fuzzywuzzy,
