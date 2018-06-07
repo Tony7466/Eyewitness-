@@ -1,3 +1,12 @@
+eyewitness (2.2.2-0kali2) kali-dev; urgency=medium
+
+  * Fix headless mode (see 4786):
+      - Add export QT_QPA_PLATFORM=offscreen in helper-script
+      - Add a dependency on links | www-browser
+      - Fix the path to phantomjs in Eyewitness.py
+
+ -- Sophie Brun <sophie@freexian.com>  Thu, 07 Jun 2018 08:55:43 +0200
+
 eyewitness (2.2.2-0kali1) kali-dev; urgency=medium
 
   * Import new upstream release

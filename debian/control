@@ -31,9 +31,11 @@ Depends: phantomjs (>= 2.1.1),
          python-service-identity,
          python-twisted,
          xvfb,
+	 links | www-browser,
          ${misc:Depends},
          ${python:Depends},
          ${shlibs:Depends}
+Recommends: firefox-esr
 Description: Rapid web application triage tool
  EyeWitness is designed to take screenshots of websites, provide some server
  header info, and identify default credentials if possible.
