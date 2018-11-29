@@ -12,10 +12,12 @@ except:
 
 try:
     from selenium import webdriver
+    from selenium.webdriver.firefox.options import Options
     from selenium.common.exceptions import NoAlertPresentException
     from selenium.common.exceptions import TimeoutException
     from selenium.common.exceptions import UnexpectedAlertPresentException
     from selenium.common.exceptions import WebDriverException
+    from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 except ImportError:
     print '[*] Selenium not found.'
     print '[*] Please run the script in the setup directory!'
@@ -50,12 +52,17 @@ def create_driver(cli_parsed, user_agent=None):
 
     # Set up our proxy information directly in the firefox profile
     if cli_parsed.proxy_ip is not None and cli_parsed.proxy_port is not None:
-        profile.set_preference('network.proxy.type', 1)
-        profile.set_preference('network.proxy.http', cli_parsed.proxy_ip)
-        profile.set_preference(
-            'network.proxy.http_port', cli_parsed.proxy_port)
-        profile.set_preference('network.proxy.ssl', cli_parsed.proxy_ip)
-        profile.set_preference('network.proxy.ssl_port', cli_parsed.proxy_port)
+	profile.set_preference('network.proxy.type', 1)
+        if "socks" in cli_parsed.proxy_type:
+	    profile.set_preference('network.proxy.socks', cli_parsed.proxy_ip)
+	    profile.set_preference('network.proxy.socks_port', cli_parsed.proxy_port)
+	    profile.set_preference('network.proxy.socks_remote_dns', True)
+	else:
+	    profile.set_preference('network.proxy.http', cli_parsed.proxy_ip)
+	    profile.set_preference(
+		'network.proxy.http_port', cli_parsed.proxy_port)
+	    profile.set_preference('network.proxy.ssl', cli_parsed.proxy_ip)
+	    profile.set_preference('network.proxy.ssl_port', cli_parsed.proxy_port)
 
     profile.set_preference('app.update.enabled', False)
     profile.set_preference('browser.search.update', False)
@@ -65,7 +72,11 @@ def create_driver(cli_parsed, user_agent=None):
     profile.set_preference('capability.policy.default.Window.prompt', 'noAccess');
 
     try:
-        driver = webdriver.Firefox(profile)
+        capabilities = DesiredCapabilities.FIREFOX.copy()
+        capabilities.update({'acceptInsecureCerts': True})
+        options = Options()
+        options.add_argument("--headless")
+        driver = webdriver.Firefox(profile, capabilities=capabilities, firefox_options=options)
         driver.set_page_load_timeout(cli_parsed.timeout)
         return driver
     except Exception as e:
@@ -198,8 +209,12 @@ def capture_host(cli_parsed, http_object, driver, ua=None):
         responsecode = e.code
         if responsecode == 404:
             http_object.category = 'notfound'
-        if responsecode == 403 or responsecode == 401:
+        elif responsecode == 403 or responsecode == 401:
             http_object.category = 'unauth'
+        elif responsecode == 500:
+            http_object.category = 'inerror'
+        elif responsecode == 400:
+            http_object.category = 'badreq'
         headers = dict(e.headers)
         headers['Response Code'] = str(e.code)
     except urllib2.URLError as e:
@@ -257,5 +272,8 @@ def capture_host(cli_parsed, http_object, driver, ua=None):
         with open(http_object.source_path, 'w') as f:
             f.write('Cannot render webpage')
         http_object.headers = {'Cannot Render Web Page': 'n/a'}
+    except IOError:
+        print("[*] ERROR: URL too long, surpasses max file length.")
+        print("[*] ERROR: Skipping: " + http_object.remote_system)
 
     return http_object, driver

@@ -24,6 +24,7 @@ from modules.helpers import target_creator
 from modules.helpers import title_screen
 from modules.helpers import open_file_input
 from modules.helpers import resolve_host
+from modules.helpers import duplicate_check
 from modules.reporting import create_table_head
 from modules.reporting import create_web_index_head
 from modules.reporting import sort_data_and_write
@@ -60,8 +61,6 @@ def create_cli_parser():
     protocols = parser.add_argument_group('Protocols')
     protocols.add_argument('--web', default=False, action='store_true',
                            help='HTTP Screenshot using Selenium')
-    protocols.add_argument('--headless', default=False, action='store_true',
-                           help='HTTP Screenshot using PhantomJS Headless')
     protocols.add_argument('--rdp', default=False, action='store_true',
                            help='Screenshot RDP Services')
     protocols.add_argument('--vnc', default=False, action='store_true',
@@ -103,7 +102,7 @@ def create_cli_parser():
                                 help='Directory name for report output')
     report_options.add_argument('--results', metavar='Hosts Per Page',
                                 default=25, type=int, help='Number of Hosts per\
-                                 page of the report')
+                                 page of VNC or RDP report')
     report_options.add_argument('--no-prompt', default=False,
                                 action='store_true',
                                 help='Don\'t prompt to open the report')
@@ -123,17 +122,19 @@ def create_cli_parser():
                               help='IP of web proxy to go through')
     http_options.add_argument('--proxy-port', metavar='8080', default=None,
                               type=int, help='Port of web proxy to go through')
+    http_options.add_argument('--proxy-type', metavar='socks5', default="http",
+                              help='Proxy type (socks5/http)')
     http_options.add_argument('--show-selenium', default=False,
                               action='store_true', help='Show display for selenium')
     http_options.add_argument('--resolve', default=False,
                               action='store_true', help=("Resolve IP/Hostname"
                                                          " for targets"))
     http_options.add_argument('--add-http-ports', default=[], 
-                              type=lambda s:[int(i) for i in s.split(",")],
+                              type=lambda s:[str(i) for i in s.split(",")],
                               help=("Comma-seperated additional port(s) to assume "
                               "are http (e.g. '8018,8028')"))
     http_options.add_argument('--add-https-ports', default=[],
-                              type=lambda s:[int(i) for i in s.split(",")],
+                              type=lambda s:[str(i) for i in s.split(",")],
                               help=("Comma-seperated additional port(s) to assume "
                               "are https (e.g. '8018,8028')"))
     http_options.add_argument('--only-ports', default=[],
@@ -141,8 +142,7 @@ def create_cli_parser():
                               help=("Comma-seperated list of exclusive ports to "
                               "use (e.g. '80,8080')"))
     http_options.add_argument('--prepend-https', default=False, action='store_true',
-                              help='Prepend http:\\\\ and https:\\\\ to URLs without either')
-    http_options.add_argument('--vhost-name', default=None,metavar='hostname', help='Hostname to use in Host header (headless + single mode only)')
+                              help='Prepend http:// and https:// to URLs without either')
     http_options.add_argument(
         '--active-scan', default=False, action='store_true',
         help='Perform live login attempts to identify credentials or login pages.')
@@ -150,6 +150,9 @@ def create_cli_parser():
     resume_options = parser.add_argument_group('Resume Options')
     resume_options.add_argument('--resume', metavar='ew.db',
                                 default=None, help='Path to db file if you want to resume')
+
+    rdp_options = parser.add_argument_group('RDP Options')
+    rdp_options.add_argument('--ocr', default=False, action='store_true', help='Use OCR to determine RDP usernames')
 
     args = parser.parse_args()
     args.date = time.strftime('%m/%d/%Y')
@@ -172,21 +175,22 @@ def create_cli_parser():
             parser.print_help()
             sys.exit()
         else:
-            if os.path.isdir(args.d):
-                overwrite_dir = raw_input(('Directory Exists! Do you want to '
-                                           'overwrite? [y/n] '))
-                overwrite_dir = overwrite_dir.lower().strip()
-                if overwrite_dir == 'n':
-                    print('Quitting...Restart and provide the proper '
-                          'directory to write to!')
-                    sys.exit()
-                elif overwrite_dir == 'y':
-                    shutil.rmtree(args.d)
-                    pass
-                else:
-                    print('Quitting since you didn\'t provide '
-                          'a valid response...')
-                    sys.exit()
+            if not args.no_prompt:
+                if os.path.isdir(args.d):
+                    overwrite_dir = raw_input(('Directory Exists! Do you want to '
+                                               'overwrite? [y/n] '))
+                    overwrite_dir = overwrite_dir.lower().strip()
+                    if overwrite_dir == 'n':
+                        print('Quitting...Restart and provide the proper '
+                              'directory to write to!')
+                        sys.exit()
+                    elif overwrite_dir == 'y':
+                        shutil.rmtree(args.d)
+                        pass
+                    else:
+                        print('Quitting since you didn\'t provide '
+                              'a valid response...')
+                        sys.exit()
 
     else:
         output_folder = args.date.replace(
@@ -201,19 +205,10 @@ def create_cli_parser():
         parser.print_help()
         sys.exit()
 
-    if not any((args.resume, args.web, args.vnc, args.rdp, args.all_protocols, args.headless)):
+    if not any((args.resume, args.web, args.vnc, args.rdp, args.all_protocols)):
         print "[*] Error: You didn't give me an action to perform."
         print "[*] Error: Please use --web, --rdp, or --vnc!\n"
         parser.print_help()
-        sys.exit()
-
-    if all((args.web, args.headless)):
-        print "[*] Error: Choose either web or headless"
-        parser.print_help()
-        sys.exit()
-
-    if args.vhost_name and not all((args.single, args.headless)):
-        print "[*] Error: vhostname can only be used in headless+single mode"
         sys.exit()
 
     if args.proxy_ip is not None and args.proxy_port is None:
@@ -248,13 +243,6 @@ def single_mode(cli_parsed):
         if not cli_parsed.show_selenium:
             display = Display(visible=0, size=(1920, 1080))
             display.start()
-    elif cli_parsed.headless:
-        if not os.path.isfile('./bin/phantomjs'):
-            print(" [*] Error: You are missing your phantomjs binary!")
-            print(" [*] Please run the setup script!")
-            sys.exit(0)
-        create_driver = phantomjs_module.create_driver
-        capture_host = phantomjs_module.capture_host
 
     url = cli_parsed.single
     http_object = objects.HTTPTableObject()
@@ -307,13 +295,7 @@ def worker_thread(cli_parsed, targets, lock, counter, user_agent=None):
     if cli_parsed.web:
         create_driver = selenium_module.create_driver
         capture_host = selenium_module.capture_host
-    elif cli_parsed.headless:
-        if not os.path.isfile('./bin/phantomjs'):
-            print(" [*] Error: You are missing your phantomjs binary!")
-            print(" [*] Please run the setup script!")
-            sys.exit(0)
-        create_driver = phantomjs_module.create_driver
-        capture_host = phantomjs_module.capture_host
+
     with lock:
         driver = create_driver(cli_parsed, user_agent)
     try:
@@ -321,6 +303,18 @@ def worker_thread(cli_parsed, targets, lock, counter, user_agent=None):
             http_object = targets.get()
             if http_object is None:
                 break
+            # Try to ensure object values are blank
+            http_object._category = None
+            http_object._default_creds = None
+            http_object._error_state = None
+            http_object._page_title = None
+            http_object._ssl_error = False
+            http_object.category = None
+            http_object.default_creds = None
+            http_object.error_state = None
+            http_object.page_title = None
+            http_object.resolved = None
+            http_object.source_code = None
             # Fix our directory if its resuming from a different path
             if os.path.dirname(cli_parsed.d) != os.path.dirname(http_object.screenshot_path):
                 http_object.set_paths(
@@ -396,6 +390,9 @@ def single_vnc_rdp(cli_parsed, engine):
         f.write(html)
         f.write("</table><br>")
 
+    if cli_parsed.ocr:
+        rdp_module.parse_screenshot(cli_parsed.d, obj)
+
 
 def multi_mode(cli_parsed):
     dbm = db_manager.DB_Manager(cli_parsed.d + '/ew.db')
@@ -421,7 +418,7 @@ def multi_mode(cli_parsed):
         pass
     else:
         url_list, rdp_list, vnc_list = target_creator(cli_parsed)
-        if any((cli_parsed.web, cli_parsed.headless)):
+        if cli_parsed.web:
             for url in url_list:
                 dbm.create_http_object(url, cli_parsed)
         for rdp in rdp_list:
@@ -429,7 +426,7 @@ def multi_mode(cli_parsed):
         for vnc in vnc_list:
             dbm.create_vnc_rdp_object('vnc', vnc, cli_parsed)
 
-    if any((cli_parsed.web, cli_parsed.headless)):
+    if cli_parsed.web:
         if cli_parsed.web and not cli_parsed.show_selenium:
             display = Display(visible=0, size=(1920, 1080))
             display.start()
@@ -540,6 +537,12 @@ def multi_mode(cli_parsed):
     m.shutdown()
     write_vnc_rdp_data(cli_parsed, vnc_rdp)
     sort_data_and_write(cli_parsed, results)
+    if cli_parsed.ocr:
+        for target in targets:
+            try:
+                rdp_module.parse_screenshot(cli_parsed.d, target)
+            except IOError:
+                pass
 
 
 def multi_callback(x):
@@ -572,8 +575,6 @@ if __name__ == "__main__":
         engines = []
         if cli_parsed.web:
             engines.append('Firefox')
-        if cli_parsed.headless:
-            engines.append('PhantomJS')
         if cli_parsed.vnc:
             engines.append('VNC')
         if cli_parsed.rdp:
@@ -589,7 +590,7 @@ if __name__ == "__main__":
         create_folders_css(cli_parsed)
 
     if cli_parsed.single:
-        if any((cli_parsed.web, cli_parsed.headless)):
+        if cli_parsed.web:
             single_mode(cli_parsed)
         elif cli_parsed.rdp:
             single_vnc_rdp(cli_parsed, 'rdp')
@@ -606,6 +607,7 @@ if __name__ == "__main__":
 
     if cli_parsed.f is not None or cli_parsed.x is not None:
         multi_mode(cli_parsed)
+        duplicate_check(cli_parsed)
 
     print 'Finished in {0} seconds'.format(time.time() - start_time)
 

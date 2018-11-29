@@ -53,6 +53,8 @@ def create_driver(cli_parsed, user_agent=None):
     if cli_parsed.proxy_ip is not None and cli_parsed.proxy_port is not None:
         service_args.append(
             '--proxy={0}:{1}'.format(cli_parsed.proxy_ip, cli_parsed.proxy_port))
+        if "socks" in cli_parsed.proxy_type:
+            service_args.append('--proxy-type=socks5')
 
     # PhantomJS resource timeout
     capabilities[
@@ -180,8 +182,12 @@ def capture_host(cli_parsed, http_object, driver, ua=None):
         responsecode = e.code
         if responsecode == 404:
             http_object.category = 'notfound'
-        if responsecode == 403 or responsecode == 401:
+        elif responsecode == 403 or responsecode == 401:
             http_object.category = 'unauth'
+        elif responsecode == 500:
+            http_object.category = 'inerror'
+        elif responsecode == 400:
+            http_object.category = 'badreq'
         headers = dict(e.headers)
         headers['Response Code'] = str(e.code)
     except urllib2.URLError as e:
@@ -238,6 +244,10 @@ def capture_host(cli_parsed, http_object, driver, ua=None):
     http_object.headers = headers
     http_object.source_code = driver.page_source.encode('utf-8')
 
-    with open(http_object.source_path, 'w') as f:
-        f.write(http_object.source_code)
+    try:
+        with open(http_object.source_path, 'w') as f:
+            f.write(http_object.source_code)
+    except IOError:
+        print("[*] ERROR: URL too long, surpasses max file length.")
+        print("[*] ERROR: Skipping: " + http_object.remote_system)
     return http_object, driver
