@@ -1,10 +1,8 @@
 *.py usr/share/eyewitness/
 *.txt usr/share/eyewitness/
-Windows usr/share/eyewitness/
 bin usr/share/eyewitness/
 build/*/rle.so usr/share/eyewitness/
 debian/helper-script/eyewitness usr/bin/
 geckodriver usr/bin
 modules usr/share/eyewitness/
 rdpy usr/share/eyewitness/
-setup usr/share/eyewitness/
