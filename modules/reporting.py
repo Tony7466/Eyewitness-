@@ -1,5 +1,6 @@
 import os
 import sys
+import urlparse
 
 try:
     from fuzzywuzzy import fuzz
@@ -166,16 +167,45 @@ def sort_data_and_write(cli_parsed, data):
                   ('successfulLogin', 'Successful Logins', 'successfulLogin'),
                   ('identifiedLogin', 'Identified Logins', 'identifiedLogin'),
                   ('infrastructure', 'Infrastructure', 'infrastructure'),
+                  ('redirector', 'Redirecting Pages', 'redirector'),
+                  ('badhost', 'Invalid Hostname', 'badhost'),
+                  ('inerror', 'Internal Error', 'inerror'),
+                  ('badreq', 'Bad Request', 'badreq'),
+                  ('serviceunavailable', 'Service Unavailable', 'serviceunavailable'),
                   ]
     if total_results == 0:
         return
     # Initialize stuff we need
     pages = []
     toc = create_report_toc_head(cli_parsed.date, cli_parsed.time)
-    toc_table = "<table class=\"toc_table\">"
+    toc_table = "<table class=\"table\">"
     web_index_head = create_web_index_head(cli_parsed.date, cli_parsed.time)
     table_head = create_table_head()
     counter = 1
+    csv_request_data = "Protocol,Port,Domain,Request Status,Screenshot Path, Source Path"
+
+    # Generate and write json log of requests
+    for json_request in data:
+        url = urlparse.urlparse(json_request._remote_system)
+
+        # Determine protocol
+        csv_request_data += "\n" + url.scheme + ","
+        if url.port is not None:
+            csv_request_data += str(url.port) + ","
+        elif url.scheme == 'http':
+            csv_request_data += "80,"
+        elif url.scheme == 'https':
+            csv_request_data += "443,"
+        csv_request_data += url.hostname + ","
+        if json_request._error_state == None:
+            csv_request_data += "Successful,"
+        else:
+            csv_request_data += json_request._error_state + ","
+        csv_request_data += json_request._screenshot_path + ","
+        csv_request_data += json_request._source_path
+
+    with open(os.path.join(cli_parsed.d, 'Requests.csv'), 'a') as f:
+        f.write(csv_request_data)
 
     # Pre-filter error entries
     errors = sorted([x for x in data if x.error_state is not None],
@@ -193,7 +223,7 @@ def sort_data_and_write(cli_parsed, data):
         for obj in grouped:
             pcount += 1
             html += obj.create_table_html()
-            if counter % cli_parsed.results == 0:
+            if (counter % cli_parsed.results == 0) or (counter == (total_results) -1):
                 html = (web_index_head + "EW_REPLACEME" + html +
                         "</table><br>")
                 pages.append(html)
@@ -210,7 +240,7 @@ def sort_data_and_write(cli_parsed, data):
         html += table_head
         for obj in errors:
             html += obj.create_table_html()
-            if counter % cli_parsed.results == 0:
+            if (counter % cli_parsed.results == 0) or (counter == (total_results)):
                 html = (web_index_head + "EW_REPLACEME" + html +
                         "</table><br>")
                 pages.append(html)
@@ -224,7 +254,7 @@ def sort_data_and_write(cli_parsed, data):
     toc_table += "<tr><th>Total</th><td>{0}</td></tr>".format(total_results)
     toc_table += "</table>"
 
-    if html != u"":
+    if (html != u"") and (counter - total_results != 0):
         html = (web_index_head + "EW_REPLACEME" + html +
                 "</table><br>")
         pages.append(html)
@@ -240,19 +270,28 @@ def sort_data_and_write(cli_parsed, data):
         num_pages = len(pages) + 1
         bottom_text = "\n<center><br>"
         bottom_text += ("<a href=\"report.html\"> Page 1</a>")
+        skip_last_dummy = False
         # Generate our header/footer data here
         for i in range(2, num_pages):
-            bottom_text += ("<a href=\"report_page{0}.html\"> Page {0}</a>").format(
-                str(i))
+            badd_page = "</center>EW_REPLACEME<table border=\"1\">\n        <tr>\n        <th>Web Request Info</th>\n        <th>Web Screenshot</th>\n        </tr></table><br>"
+            if badd_page in pages[i-1]:
+                skip_last_dummy = True
+                pass
+            else:
+                bottom_text += ("<a href=\"report_page{0}.html\"> Page {0}</a>").format(str(i))
         bottom_text += "</center>\n"
         top_text = bottom_text
         # Generate our next/previous page buttons
-        for i in range(0, len(pages)):
+        if skip_last_dummy:
+            amount = len(pages) - 1
+        else:
+            amount = len(pages)
+        for i in range(0, amount):
             headfoot = "<center>"
             if i == 0:
                 headfoot += ("<a href=\"report_page2.html\"> Next Page "
                              "</a></center>")
-            elif i == len(pages) - 1:
+            elif i == amount - 1:
                 if i == 1:
                     headfoot += ("<a href=\"report.html\"> Previous Page "
                                  "</a></center>")
@@ -278,9 +317,15 @@ def sort_data_and_write(cli_parsed, data):
         with open(os.path.join(cli_parsed.d, 'report.html'), 'a') as f:
             f.write(toc)
             f.write(pages[0])
-        for i in range(2, len(pages) + 1):
-            with open(os.path.join(cli_parsed.d, 'report_page{0}.html'.format(str(i))), 'w') as f:
-                f.write(pages[i - 1])
+        write_out = len(pages)
+        for i in range(2, write_out + 1):
+            bad_page = "<table border=\"1\">\n        <tr>\n        <th>Web Request Info</th>\n        <th>Web Screenshot</th>\n        </tr></table><br>\n<center><br><a "
+            badd_page2 = "</center>EW_REPLACEME<table border=\"1\">\n        <tr>\n        <th>Web Request Info</th>\n        <th>Web Screenshot</th>\n        </tr></table><br>"
+            if (bad_page in pages[i-1]) or (badd_page2 in pages[i-1]):
+                pass
+            else:
+                with open(os.path.join(cli_parsed.d, 'report_page{0}.html'.format(str(i))), 'w') as f:
+                    f.write(pages[i - 1])
 
 
 def create_web_index_head(date, time):
@@ -295,7 +340,7 @@ def create_web_index_head(date, time):
     """
     return ("""<html>
         <head>
-        <link rel=\"stylesheet\" href=\"style.css\" type=\"text/css\"/>
+        <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" type=\"text/css\"/>
         <title>EyeWitness Report</title>
         <script src="jquery-1.11.3.min.js"></script>
         <script type="text/javascript">
@@ -319,7 +364,7 @@ def create_web_index_head(date, time):
 def search_index_head():
     return ("""<html>
         <head>
-        <link rel=\"stylesheet\" href=\"style.css\" type=\"text/css\"/>
+        <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" type=\"text/css\"/>
         <title>EyeWitness Report</title>
         <script src="jquery-1.11.3.min.js"></script>
         <script type="text/javascript">
@@ -366,7 +411,7 @@ def vnc_rdp_table_head():
 def vnc_rdp_header(date, time):
     web_index_head = ("""<html>
     <head>
-    <link rel=\"stylesheet\" href=\"style.css\" type=\"text/css\"/>
+    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" type=\"text/css\"/>
     <title>EyeWitness Report</title>
     </head>
     <body>
@@ -445,7 +490,13 @@ def search_report(cli_parsed, data, search_term):
         if len(pages) == 0:
             return
         with open(os.path.join(cli_parsed.d, 'search.html'), 'a') as f:
-            f.write(pages[0])
+            try:
+                f.write(pages[0])
+            except UnicodeEncodeError:
+                f.write(pages[0].encode('utf-8'))
         for i in range(2, len(pages) + 1):
             with open(os.path.join(cli_parsed.d, 'search_page{0}.html'.format(str(i))), 'w') as f:
-                f.write(pages[i - 1])
+                try:
+                    f.write(pages[i - 1])
+                except UnicodeEncodeError:
+                    f.write(pages[i - 1].encode('utf-8'))

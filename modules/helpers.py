@@ -1,3 +1,4 @@
+import hashlib
 import os
 import platform
 import random
@@ -34,6 +35,9 @@ class XML_Parser(xml.sax.ContentHandler):
         self.get_ip = False
         self.service_detection = False
         self.out_file = file_out
+        self.analyze_plugin_output = False
+        self.read_plugin_output = False
+        self.plugin_output = ""
 
         self.http_ports = self.http_ports + class_cli_obj.add_http_ports
         self.https_ports = self.https_ports + class_cli_obj.add_https_ports
@@ -69,7 +73,7 @@ class XML_Parser(xml.sax.ContentHandler):
                 elif "http-alt" == attributes['name']:
                     self.protocol = "http"
                 elif "tunnel" in attributes:
-                    if "ssl" in attributes['tunnel']:
+                    if "ssl" in attributes['tunnel'] and not "smtp" in attributes['name'] and not "imap" in attributes['name'] and not "pop3" in attributes['name']:
                         self.protocol = "https"
                 elif "vnc" in attributes['name']:
                     self.protocol = "vnc"
@@ -89,8 +93,14 @@ class XML_Parser(xml.sax.ContentHandler):
                     self.port_number = attributes['port']
 
                     service_name = attributes['svc_name']
+                    # pluginID 22964 is the Service Detection Plugin
+                    # But it uses www for the svc_name for both, http and https.
+                    # To differentiate we have to look at the plugin_output...
                     if service_name == 'https?' or self.port_number in self.https_ports:
                         self.protocol = "https"
+                    elif attributes['pluginID'] == "22964" and service_name == "www":
+                        self.protocol = "http"
+                        self.analyze_plugin_output = True
                     elif service_name == "www" or service_name == "http?":
                         self.protocol = "http"
                     elif service_name == "msrdp":
@@ -99,6 +109,10 @@ class XML_Parser(xml.sax.ContentHandler):
                         self.protocol = "vnc"
 
                     self.service_detection = True
+
+            elif tag == "plugin_output" and self.analyze_plugin_output:
+                self.read_plugin_output = True
+
         return
 
     def endElement(self, tag):
@@ -155,6 +169,39 @@ class XML_Parser(xml.sax.ContentHandler):
                 self.protocol = None
                 self.port_open = False
 
+            elif tag == "port":
+                if not self.only_ports and (self.protocol == None):
+                    if (self.port_number is not None) and self.port_open and (self.system_name is not None):
+                        if self.port_number in self.http_ports:
+                            self.protocol = 'http'
+                            built_url = self.protocol + "://" + self.system_name + ":" + self.port_number
+                            if built_url not in self.url_list:
+                                self.url_list.append(built_url)
+                                self.num_urls += 1
+                        elif self.port_number in self.https_ports:
+                            self.protocol = 'https'
+                            built_url = self.protocol + "://" + self.system_name + ":" + self.port_number
+                            if built_url not in self.url_list:
+                                self.url_list.append(built_url)
+                                self.num_urls += 1
+                else:
+                    if (self.port_number is not None) and self.port_open and (self.system_name is not None) and int(self.port_number.encode('utf-8')) in self.only_ports:
+                        if self.port_number in self.http_ports:
+                            self.protocol = 'http'
+                            built_url = self.protocol + "://" + self.system_name + ":" + self.port_number
+                            if built_url not in self.url_list:
+                                self.url_list.append(built_url)
+                                self.num_urls += 1
+                        elif self.port_number in self.https_ports:
+                            self.protocol = 'https'
+                            built_url = self.protocol + "://" + self.system_name + ":" + self.port_number
+                            if built_url not in self.url_list:
+                                self.url_list.append(built_url)
+                                self.num_urls += 1
+                self.port_number = None
+                self.protocol = None
+                self.port_open = False
+
             elif tag == "host":
                 self.system_name = None
 
@@ -173,6 +220,17 @@ class XML_Parser(xml.sax.ContentHandler):
                             temp_vnc.write(vnc + '\n')
 
         elif self.nessus:
+            if tag == "plugin_output" and self.read_plugin_output:
+
+                # Use plugin_output to differentiate between http and https.
+                # "A web server is running on the remote host." indicates a http server
+                # "A web server is running on this port through ..." indicates a https server
+                if "A web server is running on this port through" in self.plugin_output:
+                    self.protocol = "https"
+
+                self.plugin_output = ""
+                self.read_plugin_output = False
+                self.analyze_plugin_output = False
             if tag == "ReportItem":
                 if not self.only_ports:
                     if (self.system_name is not None) and (self.protocol is not None) and self.service_detection:
@@ -222,7 +280,49 @@ class XML_Parser(xml.sax.ContentHandler):
                             temp_vnc.write(vnc + '\n')
 
     def characters(self, content):
-        return
+        if self.read_plugin_output:
+            self.plugin_output += content
+
+def duplicate_check(cli_object):
+    # This is used for checking for duplicate images
+    # if it finds any, it removes them and uses a single image
+    # reducing file size for output
+    # dict = {sha1hash: [pic1, pic2]}
+    hash_files = {}
+    report_files = []
+
+    for name in glob.glob(cli_object.d + '/screens/*.png'):
+        with open(name, 'rb') as screenshot:
+            pic_data = screenshot.read()
+        md5_hash = hashlib.md5(pic_data).hexdigest()
+        if md5_hash in hash_files:
+            hash_files[md5_hash].append(name.split('/')[-2] + '/' + name.split('/')[-1])
+        else:
+            hash_files[md5_hash] = [name.split('/')[-2] + '/' + name.split('/')[-1]]
+
+    for html_file in glob.glob(cli_object.d + '/*.html'):
+        report_files.append(html_file)
+
+    for hex_value, file_dict in hash_files.items():
+        total_files = len(file_dict)
+        if total_files > 1:
+            original_pic_name = file_dict[0]
+            for num in xrange(1, total_files):
+                next_filename = file_dict[num]
+                for report_page in report_files:
+                    with open(report_page, 'r') as report:
+                        page_text = report.read()
+                    page_text = page_text.replace(next_filename, original_pic_name)
+                    with open(report_page, 'w') as report_out:
+                        report_out.write(page_text)
+                os.remove(cli_object.d + '/' + next_filename)
+                with open(cli_object.d + "/Requests.csv", 'r') as csv_port_file:
+                    csv_lines = csv_port_file.read()
+                    if next_filename in csv_lines:
+                        csv_lines = csv_lines.replace(next_filename, original_pic_name)
+                with open(cli_object.d + "/Requests.csv", 'w') as csv_port_writer:
+                    csv_port_writer.write(csv_lines)
+    return
 
 
 def resolve_host(system):
@@ -271,6 +371,8 @@ def textfile_parser(file_to_parse, cli_obj):
     urls = []
     rdp = []
     vnc = []
+    openports = {}
+    complete_urls = []
 
     try:
         # Open the URL file and read all URLs, and reading again to catch
@@ -281,12 +383,20 @@ def textfile_parser(file_to_parse, cli_obj):
         # else:
         for line in all_urls:
             line = line.strip()
+
+            # Account for odd case schemes and fix to lowercase for matching
+            scheme = urlparse(line)[0]
+            if scheme == 'http':
+                line = scheme + '://' + line[7:]
+            elif scheme == 'https':
+                line = scheme + '://' + line[8:]
+
             if not cli_obj.only_ports:
-                if line.startswith('http://') or line.startswith('https://'):
+                if scheme == 'http' or scheme == 'https':
                     urls.append(line)
-                elif line.startswith('rdp://'):
+                elif scheme == 'rdp':
                     rdp.append(line[6:])
-                elif line.startswith('vnc://'):
+                elif scheme == 'vnc':
                     vnc.append(line[6:])
                 else:
                     if cli_obj.rdp:
@@ -300,10 +410,11 @@ def textfile_parser(file_to_parse, cli_obj):
                         else:
                             urls.append(line)
             else:
-                if line.startswith('http://') or line.startswith('https://'):
+                if scheme == 'http' or scheme == 'https':
                     for port in cli_obj.only_ports:
                         urls.append(line + ':' + str(port))
                 else:
+
                     if cli_obj.web or cli_obj.headless:
                         if cli_obj.prepend_https:
                             for port in cli_obj.only_ports:
@@ -312,11 +423,64 @@ def textfile_parser(file_to_parse, cli_obj):
                         else:
                             for port in cli_obj.only_ports:
                                 urls.append(line + ':' + str(port))
+        
+        # Look at URLs and make CSV output of open ports unless already parsed from XML output
+        # This parses the text file
+        for url_again in all_urls:
+            url_again = url_again.strip()
+            complete_urls.append(url_again)
+            if url_again.count(":") == 2:
+                port_number = int(url_again.split(":")[2].split("/")[0])
+                hostname_again = url_again.split(":")[0] + ":" + url_again.split(":")[1] + ":" + url_again.split(":")[2]
+                if port_number in openports:
+                    openports[port_number] += "," + hostname_again
+                else:
+                    openports[port_number] = hostname_again
+            else:
+                if "https://" in url_again:
+                    if 443 in openports:
+                        openports[443] += "," + url_again
+                    else:
+                        openports[443] = url_again
+                else:
+                    if 80 in openports:
+                        openports[80] += "," + url_again
+                    else:
+                        openports[80] = url_again
+
+        # Start prepping to write out the CSV
+        csv_data = "URL"
+        ordered_ports = sorted(openports.iterkeys())
+        for opn_prt in ordered_ports:
+            csv_data += "," + str(opn_prt)
+
+        # Create the CSV data row by row
+        for ind_system in complete_urls:
+            # add new line and add hostname
+            csv_data += '\n'
+            csv_data += ind_system + ","
+            for test_for_port in ordered_ports:
+                if ind_system in openports[test_for_port]:
+                    csv_data += "X,"
+                else:
+                    csv_data += ","
+
+        # Write out CSV
+        with open(cli_obj.d + "/open_ports.csv", 'w') as csv_file_out:
+            csv_file_out.write(csv_data)
 
         return urls, rdp, vnc
 
     except IOError:
-        print "ERROR: You didn't give me a valid file name! I need a valid file containing URLs!"
+        if cli_obj.x is not None:
+            print "ERROR: The XML file you provided does not have any active web servers!"
+        else:
+            print "ERROR: You didn't give me a valid file name! I need a valid file containing URLs!"
+        sys.exit()
+
+    except ValueError:
+        print("ERROR: You likely passed an XML file into the plain text input parameter!")
+        print("ERROR: Please try again with the -x flag instead of -f!")
         sys.exit()
 
 
@@ -486,6 +650,8 @@ def title_screen():
         os.system('clear')
     print "#" * 80
     print "#" + " " * 34 + "EyeWitness" + " " * 34 + "#"
+    print "#" * 80
+    print "#" + " " * 11 + "FortyNorth Security - https://www.fortynorthsecurity.com" + " " * 11 + "#"
     print "#" * 80 + "\n"
 
     python_info = sys.version_info
@@ -578,6 +744,8 @@ def create_folders_css(cli_parsed):
     """
 
     # Create output directories
+    if os.path.exists(cli_parsed.d):
+        shutil.rmtree(cli_parsed.d)
     os.makedirs(cli_parsed.d)
     os.makedirs(os.path.join(cli_parsed.d, 'screens'))
     os.makedirs(os.path.join(cli_parsed.d, 'source'))

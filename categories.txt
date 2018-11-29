@@ -294,3 +294,105 @@ iLO.sendJsonRequest("logout", "POST", "json/login_session";$.eventsource("addEve
 <title>Login - OpenStack Dashboard</title>;/* Load angular modules extensions list before we;<input type="password" value="" name="fake_password|infrastructure
 <title>GigaVUE-HB1 - Login</title>;function HidePasswordString();function ProcessKeyEvent(e)|infrastructure
 <IMG SRC="logo.png" ALT="[Logo]">;<H1>Zebra Technologies<BR>;ZTC 170Xi4-300dpi ZPL</H1>;<H2>Printer Home Page</H2>|printer
+<title>Login</title>;img src="/inc/errorbubble.gif;class="tt_form_row_peer" id='usernamePeer;class="tt_form_row_reqd" id="passwordRqd";<legend>Administrator login</legend>|infrastructure
+Copyright 2010-2012, Nimble Storage;LoginPage.generation;com.nimblestorage.nimbus.NimbusEntryPoint.nocache.js;base64|infrastructure
+<h1><a id="bitnami-link" href="redmine/">Access BitNami Redmine Stack</a></h1>;The BitNami Project was created to help spread;To enter the application please click on the link at the top of the page|infrastructure
+Password Reset - Self Service</title>;top.location = self.location;adminlogin.html;desc resetDesc|infrastructure
+Octopus Deploy'">Octopus Deploy</title>;Checking your credentials. Please wait...;Use a custom expression;dynamicallyGeneratedContent|infrastructure
+<h1>Welcome to VisualSVN Server!</h1>;<title>VisualSVN Server</title>;<a href="/svn/">Repositories</a>|infrastructure
+/images/prtg_network_monitor.png;PRTG Network Monitor;loginpassword;This may considerably slow down|infrastructure
+<title></title>;<span>Barracuda</span>;base64_encode;passwords over HTTP are what they are. Use HTTPS;Barracuda Networks;function obfuscatePassword|infrastructure
+<Title>ConfigSummary</Title>;<LangNo>En</LangNo>;DN71B7;DN73B1;DN88B2;EngType;IsAral65|printer
+This <a class="device_noun">access point;is trying to join a network or find;simple-tabs-content container;your_hideable_connection_info|infrastructure
+<h1>Zebra Technologies<br>;Internal Wired PrintServer;Status:;Printer Home Page;View and Modify Printer Settings|printer
+<title>Web Connection</title>;function popupCopyright;font color="red";Lang.cgi?LangSelect;i3ddgspc.gif|printer
+<TITLE>Sony Network Camera SNC-RZ50</TITLE>;ViewerSelect;Sony Corporation|infrastructure
+<title>Fireware XTM User Authentication</title>;Fireware XTM User Authentication web page;var newloc;wgcgi.cgi?|infrastructure
+<title>User Portal</title>;Date;Expression;necessary files to set up SSL VPN on Linux;jape/jape_prereq_10_prototype.js;Cfg.app=|infrastructure
+RD Web Access;WorkSpaceID;PublicModeTimeout;RedirectorName;tdClaimsDomainUserNameLable;trPasswordExpiredNoChange|infrastructure
+HTTP;refresh:/cgi-bin/pcast.cgi;url=/cgi-bin/pcast.cgi;<title>PCast</title>|infrastructure
+content="BUFFALO INC.";<title>TeraStation;id="frmNas" name="frmNas";C) BUFFALO INC;divAuthSubmitItem|infrastructure
+parse the RedirectUrl;RedirectQueryString;nameArray;nameArray["RedirectQueryString"]|redirector
+<html><head></head><body><h1>Bad Request (Invalid Hostname)</h1></body></html>|badhost
+<h2>Service Unavailable</h2>;HTTP Error 503. The service is unavailable.;<title>Service Unavailable</title>|serviceunavailable
+<title>Log In</title>;<div class="imc_ui_log_box_top bg_hpe">;loadErrForm_SUBMIT;centerContentIframeHref;PrimeFaces|infrastructure
+Management Studio - Redirection;Refresh;ManagementStudio|redirector
+<title>Mitel 5000 Communications Platform</title>;username_vis;encodeURIComponent;login_form;authhash_hidden|infrastructure
+<a href="/" class="navbar-brand">EMC ViPR</a>;<title>Internal Server Error</title>;HTTPS Connection Required;<div class="well">|infrastructure
+"companyName":"Data Domain";"productName":"System Manager";EMC Corporation. All Rights Reserved.|infrastructure
+<title>Dell Remote Access Controller 5</title>;/cgi/support.html;document.location.replace("/cgi-bin/webcgi/sclogin");frmSubmit|idrac
+<title>Log In</title>;title="Go to CA Network Flow Analysis" class="login-page-logo";Network Flow Analysis</span>|infrastructure
+<p id="powered">Powered by <a href="http://www.ruckuswireless.com">Ruckus Wireless</a></p>;<tr><th>Admin Name</th><td><input class="login_input";<tr><th>Password</th><td><input class="login_input";<title>Log In</title>|infrastructure
+<link rel="stylesheet" href="resources/webLogin-all.css">;<title>Polycom Login</title>;<meta http-equiv="X-UA-Compatible" content="IE=edge">;Password:</label></div></div></div>;type="text" role="textbox" size="1" name="userName" class="x-form-field x-form-text|infrastructure
+<title>WebTools | Home</title>;<td align="left" valign="middle" class="name">XeroxC70;set_status_refresh_interval|printer
+<title>S2 Netbox Login</title>;<!--License IFRAME HERE GOES HERE-->;div id="headerframe"|infrastructure
+<title>Remote Support Portal;Powered by BOMGAR</title>;exitSurveyBox;Show Representatives Help Window;/content/access_key_input.js|infrastructure
+<title>Pritunl</title>;<link rel="icon" type="image/x-icon" href;onSubmit();login-form;var duoUserInput = document.getElementById('duo-username')|infrastructure
+<title>Log In - Juniper Web Device Manager</title>;document.getElementById("antiClickjack");Juniper Networks, Inc.;document.getElementById('errorMsgId')|infrastructure
+var pageRandom=new Date().getTime();var pageRandom=new Date().getTime();<span>Are you sure you want to email an emergency security code?</span>;<div class="qnap-link show">;<div class="qts-tooltip">|nas
+This can be refactored into waitWithCallback;function sendPost( reqUrl, postData, renderPageCallback );//var thisIDRACText = EntityDecode;sendLoginRequest;id="domainDisp" name="domainDisp"|highval
+<img src="images/cisco-meraki.png" width="120">;<a class="device_noun">access point;<label for="site_survey_select">|netdev
+var applicationLoadingMessage = function ();var applicationLoadingMessage = function ();var views = {};var panels = {}|nas
+<title>Lexmark MS312dn</title>;<frame name="Printer Information";<!-- Lexmark -->;This page uses frames|printer
+script type="text/JavaScript";location.href = "/sclogin.html;op.document.location.href = "/index.html;document.location.href = "/login.html|highval
+Polycom Web Configuration Utility;Welcome to Polycom Web Configuration Utility;Enter Login Information;submitLoginInfo()|voip
+loginHeader;Bricked AWS SCSH Appliance Pane;SteelConnect Manager;confirmPasswordField;currPasswordField;helpPaneCloseButtonContainer|infrastructure
+Polycom;Media Suite;You are using an;LOGIN.USER_ID;inputPassword3;LOGIN.PASSWORD|voip
+<title>GigaVUE-OS</title>;checkIfMasterIp;response.localClusterMode;encodeURIComponent;httpUserName;httpUserPwd|netdev
+<title>Log On</title>;<body id="logonbg" onload="placeFocus()">;User Name</dt>;<a href="http://www.apc.com"|infrastructure
+meta http-equiv="Content-Type" content="text/html;img src="iisstart.png" alt="IIS";<div id="container">|crap
+SteelHead WAN optimization;Bricked AWS SCSH Appliance Pane;rvbdLoginLogoContainer;usernameField|netdev
+login-container;form class="form-horizontal";CSRF_TOKEN;h4 class="title">Login</h4>;SpinetiX</a></div>|infrastructure
+<title>Avocent DSR8035 Explorer;iframe id="status-source";td class="app-title" id="app-title";setRootNavNode|infrastructure
+<title>;Web Image Monitor</title>;src="header.cgi";title="Header Area";src="topPage.cgi"|printer
+g_direction = "rtl";forceReloadNav;kAllowDirectHTMLFileAccess;getUTF8Name;hdaccelerator;sipuseadcred|voip
+siteAuthReqd;loginReqdChkd;loginFailed;getUnityInfo;updReturnPageChgMode;document.getElementById('loginMsg')|infrastructure
+<title>Webtools</title>;URL=wt2parser.cgi?home_en;selectedIndex;textsmall;name="inside" src="wt2parser.cgi?status_en.htm"|printer
+framebreakout;<title>Cisco Web Accessible Phone Settings</title>;sym_Password;sym_DPBPwd|voip
+<title>NETGEAR ReadyNAS</title>;fostmedm-webfont.eot;link_remote_access_policy;ExtJs|nas
+<title>Datamax-O'Neil Printer Page</title>;scrolling="auto" src="info.html">;meta name="ProgId"|printer
+Cisco Unified IP Phone CP-7970G;Device Information;Serviceability;device.statistics.streaming.1|voip
+secure/ltx_conf.htm;sTargetURL;window.location.href = sTargetURL;doRedirect|infrastructure
+browsehappy;meta name="viewport" content;esxUiApp;$root.title;div ui-view|highval
+<title>Forcepoint Appliance</title>;For assistance with specific CLI commands, see the;Use the Content Gateway Manager;prodSelect_button|infrastructure
+ATEN International Co Ltd;LANG_LOGIN_INVALID_USERNAME;LANG_LOGIN_INVALID_PASSWORD;form1.pwd.focus();LANG_LOGIN_PROMPT|netdev
+<title>Pure Storage Login</title>;pure-help;pure-header-links-action;type="password" style="float;groupOption|nas
+<title>Honeywell Building Control</title>;printCardholderManagementSection;message-install_silverlight;checkIfDotNetIsInstalled;HMIWeb Browser links|infrastructure
+Printer with Embedded Web Server;www.office.xerox.com;ColorQube 8580;LaunchDrivers()|printer
+<title>Brother QL-720;getCookie(key);/printer/ball.gif;Brother Industries, Ltd;END OFSELECT LANGUAGE|printer
+<title>Directory Listing --;<i>Directory Listing --|dirlist
+<title>Login - NetScout Systems, Inc;loadClientLocale();popUpBlockingActive();setPassword()|infrastructure
+ProCurve 6120XG Blade Switch;openRegistrationWindow();var dws = new Array()|infrastructure
+Hewlett-Packard Development Company;HP Virtual Connect Manager;<title>HP Virtual Connect Manager</title>|virtualization
+<title class="_ctxstxt_AppStore">;receiver/css/ctxs.no;aboutphoneBackBtn;citrixReceiverLogoAboutBox|virtualization
+<title>Welcome to Service Assistant</title>;var clusterAddressLabel;showIPDiv();svcProductMtm|nas
+<title>IBM HTTP Server 8.5.5</title>;COPYRIGHT International Business Machines Corporation;images/odot.gif|crap
+Micro Focus Enterprise Server Administration</title>;clearItemChanged();makeAlphaNumeric;setLHSmenu()|infrastructure
+<title>DataStax OpsCenter</title>;css/ripcord.css;parseAppParams();Function.prototype.bind|infrastructure
+<title>SevOne NMS - Network Manager</title>;isSevOneSecurityEnabled;initiateTitleBarCheck|infrastructure
+<title>Unisphere</title>;onload="init();Unisphere user name;BtnLoginStyle;buttonDivContainer|infrastructure
+<title>;Load Dynamix Enterprise;ember1218;home/whatsnew;apidocs;user_remember_me|infrastructure
+<title>RStudio Sign In</title>;function verifyMe();payload;submitRealForm()|netdev
+<title>SANscreen by NetApp</title>;/branding/logo_head_fill.png;common/menu.do|nas
+<title>Grafana</title>;grafana-app class="grafana-app";grafanaBootData;/dashboard/snapshots|infrastructure
+Management Console</title>;<title>Cloud;setGMToffset;updateGroupInput;groupid|nas
+<title>Identity Services Engine</title>;login_action;idSrcCkVal;onEnterSubmitUnPwd|infrastructure
+ExtraHop Login;/media/css/loginout.css;document.login.username.focus();loginContainer|infrastructure
+<title>Centreon - IT;body onload="document.login.useralias.focus();input name="centreon_token" type="hidden"|infrastructure
+document.write("<link rel='stylesheet';Hikvision Digital Technology Co.;divAskAgain;laNoAskToChange|infrastructure
+ng-click="jfSidebar.pinMenu();-- end ngRepeat: item in jfSidebar.menuItems --;div id="home-disclaimer" class="ng-scope"|infrastructure
+<title>Brother QL-710W</title>;href="/printer/main.html?refresh=on;Network Firmware Version;name="webLang" onchange="changeLanguage()|printer
+fromWebChromeNACL;console.log(e.source);var g_ocx = 0;g_backIvs;g_busernameEncrypt|infrastructure
+<title>Welcome to ntopng</title;/js/rickshaw.js;container-narrow;form_add_user;makeUsernameLowercase|netdev
+<title>Login</title;label id="login-username-label";label id="login-password-label;/data/managedMode.json;id="devname">EAP110</span>|netdev
+<title>MiVoice Video Phone</title>;var productName = "MiVoice Conference Phone";$("title").text(productName|voip
+<title>Mitel Standard;var urlbits = window.location.href.;td class="inputLabel">Username:Mitel Networks Corporation|infrastructure
+<title ng-bind="manageCtrl.system.getName();UniFi'" class="ng-binding">UniFi</title>;translate="ACCOUNT_TITLE_HOTSPOT_MANAGER"|infrastructure
+<title>Dell OpenManage Switch Administrator</title>;window.top.location.href = "dell_login.html";login_text|netdev
+WSMAN library is loaded here as;FRAMEHEADER;function loadFrames;top.remoteSelection = "radioJava";src="lib/eLang.js"|infrastructure
+<title>Login</title>;label id="lausername" name="lausername";label id="lapassword" name="lapassword";label id="lapassword" name="lapassword"|infrastructure
+<title>Network Monitor</title>;Spiceworks Network Monitor requires;!checkConfig();versionCheck|infrastructure
+<title> SyncThru Web Service </title>;sws_loading_wait;<span>SyncThru Web Service</span>|printer
+<Title>ConfigSummary</Title>;<AuthUserName>Public</AuthUserName>;<ProductName>bizhub C368</ProductName>|printer
+.titleciscolog;.titleciscouser;opener && opener.location.hostname == self.location.hostname;temp=String.fromCharCode(temp)|netdev
+body ng-app="esxUiApp";img src="images/esxi.png;class="esx-icon-help-new-window;ng-app="esxUiApp"|highval
