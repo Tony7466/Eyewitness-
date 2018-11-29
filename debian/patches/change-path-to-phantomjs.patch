@@ -1,3 +1,9 @@
+Description: Use Packaged Phantomjs
+ Use the package phantomjs: fix the path to find phantomjs
+Author: Sophie Brun <sophie@offensive-security.com>
+Last-Update: 2018-11-29
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/modules/phantomjs_module.py
 +++ b/modules/phantomjs_module.py
 @@ -37,8 +37,7 @@ def create_driver(cli_parsed, user_agent
@@ -10,23 +16,3 @@
  
      # Set up our user agent if necessary
      if cli_parsed.user_agent is not None:
---- a/EyeWitness.py
-+++ b/EyeWitness.py
-@@ -249,7 +249,7 @@ def single_mode(cli_parsed):
-             display = Display(visible=0, size=(1920, 1080))
-             display.start()
-     elif cli_parsed.headless:
--        if not os.path.isfile('./bin/phantomjs'):
-+        if not os.path.isfile('/usr/bin/phantomjs'):
-             print(" [*] Error: You are missing your phantomjs binary!")
-             print(" [*] Please run the setup script!")
-             sys.exit(0)
-@@ -308,7 +308,7 @@ def worker_thread(cli_parsed, targets, l
-         create_driver = selenium_module.create_driver
-         capture_host = selenium_module.capture_host
-     elif cli_parsed.headless:
--        if not os.path.isfile('./bin/phantomjs'):
-+        if not os.path.isfile('/usr/bin/phantomjs'):
-             print(" [*] Error: You are missing your phantomjs binary!")
-             print(" [*] Please run the setup script!")
-             sys.exit(0)
