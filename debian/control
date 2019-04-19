@@ -11,8 +11,8 @@ Build-Depends: ca-certificates,
                wget
 Standards-Version: 4.1.4
 Homepage: https://www.christophertruncer.com/eyewitness-triage-tool/
-Vcs-Git: git://git.kali.org/packages/eyewitness.git
-Vcs-Browser: http://git.kali.org/gitweb/?p=packages/eyewitness.git;a=summary
+Vcs-Git: https://gitlab.com/kalilinux/packages/eyewitness.git
+Vcs-Browser: https://gitlab.com/kalilinux/packages/eyewitness
 
 Package: eyewitness
 Architecture: amd64 i386
