@@ -1,12 +1,12 @@
 import os
 import sys
-import urlparse
+import urllib.parse
 
 try:
     from fuzzywuzzy import fuzz
 except ImportError:
-    print '[*] fuzzywuzzy not found.'
-    print '[*] Please run the script in the setup directory!'
+    print('[*] fuzzywuzzy not found.')
+    print('[*] Please run the script in the setup directory!')
     sys.exit()
 
 
@@ -31,8 +31,7 @@ def process_group(
         String: HTML representing ToC Table
         String: HTML representing current report page
     """
-    group_data = sorted([x for x in data if x.category == group],
-                        key=lambda (k): k.page_title)
+    group_data = sorted([x for x in data if x.category == group], key=lambda k: str(k.page_title))
 
     grouped_elements = []
     if len(group_data) == 0:
@@ -52,7 +51,7 @@ def process_group(
         temp = [x for x in group_data if fuzz.token_sort_ratio(
             test_element.page_title, x.page_title) >= 70]
         temp.append(test_element)
-        temp = sorted(temp, key=lambda (k): k.page_title)
+        temp = sorted(temp, key=lambda k: k.page_title)
         grouped_elements.extend(temp)
         group_data = [x for x in group_data if fuzz.token_sort_ratio(
             test_element.page_title, x.page_title) < 70]
@@ -186,7 +185,7 @@ def sort_data_and_write(cli_parsed, data):
 
     # Generate and write json log of requests
     for json_request in data:
-        url = urlparse.urlparse(json_request._remote_system)
+        url = urllib.parse.urlparse(json_request._remote_system)
 
         # Determine protocol
         csv_request_data += "\n" + url.scheme + ","
@@ -196,7 +195,13 @@ def sort_data_and_write(cli_parsed, data):
             csv_request_data += "80,"
         elif url.scheme == 'https':
             csv_request_data += "443,"
-        csv_request_data += url.hostname + ","
+        try:
+            csv_request_data += url.hostname + ","
+        except TypeError:
+            print("Error when accessing a target's hostname (it's not existent)")
+            print("Possible bad url (improperly formatted) in the URL list.")
+            print("Fix your list and re-try. Killing EyeWitness....")
+            sys.exit(1)
         if json_request._error_state == None:
             csv_request_data += "Successful,"
         else:
@@ -209,9 +214,9 @@ def sort_data_and_write(cli_parsed, data):
 
     # Pre-filter error entries
     errors = sorted([x for x in data if x.error_state is not None],
-                    key=lambda (k): (k.error_state, k.page_title))
+                    key=lambda k: (k.error_state, k.page_title))
     data[:] = [x for x in data if x.error_state is None]
-    data = sorted(data, key=lambda (k): k.page_title)
+    data = sorted(data, key=lambda k: str(k.page_title))
     html = u""
     # Loop over our categories and populate HTML
     for cat in categories:
@@ -427,7 +432,7 @@ def search_report(cli_parsed, data, search_term):
     counter = 1
 
     data[:] = [x for x in data if x.error_state is None]
-    data = sorted(data, key=lambda (k): k.page_title)
+    data = sorted(data, key=lambda k: k.page_title)
     html = u""
 
     # Add our errors here (at the very very end)
