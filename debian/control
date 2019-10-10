@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Kali Developers <devel@kali.org>
 Uploaders: Devon Kearns <dookie@kali.org>
 Build-Depends: ca-certificates,
-               debhelper (>= 11),
+               debhelper-compat (= 12),
                dh-python,
                python3-all-dev,
                python3-setuptools,
