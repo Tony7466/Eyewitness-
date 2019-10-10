@@ -3,22 +3,17 @@
 DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 
 ifeq ($(DEB_BUILD_ARCH),amd64)
-	filename="geckodriver-v0.22.0-linux64.tar.gz"
+	filename="geckodriver-v0.24.0-linux64.tar.gz"
 else
-	filename="geckodriver-v0.22.0-linux32.tar.gz"
+	filename="geckodriver-v0.24.0-linux32.tar.gz"
 endif
 
 %:
 	dh $@ --with python3
 
 override_dh_auto_build:
-	wget https://github.com/ChrisTruncer/rdpy/archive/master.tar.gz -O rdpy.tar.gz
-	tar xvfz rdpy.tar.gz
-	cp -r rdpy-master/* ./
 	dh_auto_build
-	rm -rf rdpy-master
-	rm rdpy.tar.gz
-	wget https://github.com/mozilla/geckodriver/releases/download/v0.22.0/$(filename)
+	wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/$(filename)
 	tar -xvf $(filename)
 	rm $(filename)
 
