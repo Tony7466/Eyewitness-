@@ -16,8 +16,7 @@ Vcs-Browser: https://gitlab.com/kalilinux/packages/eyewitness
 
 Package: eyewitness
 Architecture: amd64 i386
-Depends: phantomjs (>= 2.1.1),
-         python3,
+Depends: python3,
          python3-bs4,
          python3-fuzzywuzzy,
          python3-levenshtein,
