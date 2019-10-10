@@ -1,3 +1,24 @@
+eyewitness (3.0.1-0kali1) kali-dev; urgency=medium
+
+  [ Sophie Brun ]
+  * Fix debian/watch
+  * New upstream version 3.0.1
+  * Switch to Python 3
+  * Use debhelper-compat 12
+  * Bump Standards-Version to 4.4.0
+  * Remove patch and phantomjs in depends
+  * Update dependencies and install for new release
+  * Add lintian-overrides
+  * Add a patch to fix issues in Python 3
+
+  [ Raphaël Hertzog ]
+  * Update Vcs-* fields for the move to gitlab.com
+  * Add GitLab's CI configuration file
+  * Configure git-buildpackage for Kali
+  * Update URL in GitLab's CI configuration file
+
+ -- Sophie Brun <sophie@offensive-security.com>  Thu, 10 Oct 2019 09:25:12 +0200
+
 eyewitness (2.2.3-0kali1) kali-dev; urgency=medium
 
   * Import new upstream release
