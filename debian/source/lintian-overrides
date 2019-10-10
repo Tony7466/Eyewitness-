@@ -1,0 +1,2 @@
+# keep embedded version of .js files
+eyewitness source: source-is-missing bin/*

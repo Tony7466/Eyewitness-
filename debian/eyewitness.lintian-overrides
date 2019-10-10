@@ -1,0 +1,6 @@
+# keep embedded version of .js files
+eyewitness: embedded-javascript-library usr/share/eyewitness/bin/jquery*
+# the geckodriver binary is downloaded during build. We can't patch /
+# change it
+eyewitness: statically-linked-binary usr/bin/geckodriver
+eyewitness: spelling-error-in-binary usr/bin/geckodriver aquire acquire
