@@ -6,8 +6,8 @@ Uploaders: Devon Kearns <dookie@kali.org>
 Build-Depends: ca-certificates,
                debhelper (>= 11),
                dh-python,
-               python-all-dev,
-               python-setuptools,
+               python3-all-dev,
+               python3-setuptools,
                wget
 Standards-Version: 4.1.4
 Homepage: https://www.christophertruncer.com/eyewitness-triage-tool/
@@ -17,25 +17,25 @@ Vcs-Browser: https://gitlab.com/kalilinux/packages/eyewitness
 Package: eyewitness
 Architecture: amd64 i386
 Depends: phantomjs (>= 2.1.1),
-         python,
-         python-bs4,
-         python-fuzzywuzzy,
-         python-levenshtein,
-         python-netaddr,
-         python-openssl,
-	 python-pil,
-         python-pyasn1,
-         python-pyvirtualdisplay,
-         python-qt4reactor,
-         python-rsa,
-         python-selenium,
-         python-service-identity,
-	 python-pytesseract,
-         python-twisted,
+         python3,
+         python3-bs4,
+         python3-fuzzywuzzy,
+         python3-levenshtein,
+         python3-netaddr,
+         python3-openssl,
+	 python3-pil,
+         python3-pyasn1,
+         python3-pyvirtualdisplay,
+         python3-qt4reactor,
+         python3-rsa,
+         python3-selenium,
+         python3-service-identity,
+	 python3-pytesseract,
+         python3-twisted,
          xvfb,
 	 links | www-browser,
          ${misc:Depends},
-         ${python:Depends},
+         ${python3:Depends},
          ${shlibs:Depends}
 Recommends: firefox-esr
 Description: Rapid web application triage tool
