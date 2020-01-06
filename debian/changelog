@@ -2,6 +2,7 @@ eyewitness (3.0.2-0kali1) kali-dev; urgency=medium
 
   * New upstream version 3.0.2
   * Bump Standards-Version to 4.4.1
+  * Add superficial autopkgtest
 
  -- Sophie Brun <sophie@offensive-security.com>  Mon, 06 Jan 2020 15:07:22 +0100
 
