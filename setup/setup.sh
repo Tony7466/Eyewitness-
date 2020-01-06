@@ -5,6 +5,9 @@ userid=`id -u`
 osinfo=`cat /etc/issue|cut -d" " -f1|head -n1`
 eplpkg='http://linux.mirrors.es.net/fedora-epel/6/i386/epel-release-6-8.noarch.rpm'
 
+# Setting environment variables
+export TERM=linux
+
 # Clear Terminal (For Prettyness)
 clear
 
@@ -211,7 +214,51 @@ case ${osinfo} in
   Ubuntu)
     apt-get update
     echo '[*] Installing Debian Dependencies'
-    apt-get install -y cmake python3 xvfb python3-pip python-netaddr python3-dev tesseract-ocr firefox-esr
+    apt-get install -y cmake python3 xvfb python3-pip python-netaddr python3-dev tesseract-ocr firefox x11-utils
+    pip3 install --upgrade pip
+    echo '[*] Upgrading paramiko'
+    python3 -m pip install --upgrade paramiko
+    echo
+    echo '[*] Installing Python Modules'
+    python3 -m pip install fuzzywuzzy
+    python3 -m pip install selenium --upgrade
+    python3 -m pip install python-Levenshtein
+    python3 -m pip install pyasn1
+    python3 -m pip install pyvirtualdisplay
+    python3 -m pip install beautifulsoup4
+    python3 -m pip install pytesseract
+    python3 -m pip install netaddr
+    echo
+    cd ../bin/
+    MACHINE_TYPE=`uname -m`
+    if [ ${MACHINE_TYPE} == 'x86_64' ]; then
+      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      tar -xvf geckodriver-v0.26.0-linux64.tar.gz
+      rm geckodriver-v0.26.0-linux64.tar.gz
+      mv geckodriver /usr/sbin
+      if [ -e /usr/bin/geckodriver ]
+      then
+      	rm /usr/bin/geckodriver
+      fi
+      ln -s /usr/sbin/geckodriver /usr/bin/geckodriver
+    else
+      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz
+      tar -xvf geckodriver-v0.26.0-linux32.tar.gz
+      rm geckodriver-v0.26.0-linux32.tar.gz
+      mv geckodriver /usr/sbin
+      if [ -e /usr/bin/geckodriver ]
+      then
+      	rm /usr/bin/geckodriver
+      fi
+      ln -s /usr/sbin/geckodriver /usr/bin/geckodriver
+    fi
+    cd ..
+  ;;
+  # Arch or Manjaro Dependency Installation
+  Arch | Manjaro)
+    pacman -Syu
+    echo '[*] Installing Arch Dependencies'
+    pacman -S cmake python3 python-xvfbwrapper python-pip python-netaddr firefox
     echo '[*] Upgrading paramiko'
     python3 -m pip install --upgrade paramiko
     echo
