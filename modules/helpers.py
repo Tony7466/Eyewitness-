@@ -637,6 +637,22 @@ def do_jitter(cli_parsed):
         except KeyboardInterrupt:
             pass
 
+def do_delay(cli_parsed):
+    """Delay between the opening of the navigator and taking the screenshot
+
+    Args:
+        cli_parsed (ArgumentParser): CLI Object
+
+    Returns:
+        TYPE: Description
+    """
+    if cli_parsed.delay is not 0:
+        sleep_value = cli_parsed.delay
+        print("[*] Sleeping for " + str(sleep_value) + " seconds before taking the screenshot")
+        try:
+            time.sleep(sleep_value)
+        except KeyboardInterrupt:
+            pass
 
 def create_folders_css(cli_parsed):
     """Writes out the CSS file and generates folders for output
@@ -816,11 +832,11 @@ M                                                                M
 M       .”cCCc”.                                                 M
 M      /cccccccc\\           Our Upcoming Trainings:              M
 M      §cccccccc|                                                M
-M      :ccccccccP       44Con >> Dec 02- Dec 05 2019             M
-M      \\cccccccc()                 London, England               M
-M       \\ccccccccD              http://44con.com                 M
+M      :ccccccccP       BlackHat Asia >> Mar 31 - Apr 03 2020    M
+M      \\cccccccc()                 Singapore                     M
+M       \\ccccccccD         https://www.blackhat.com              M
 M       |cccccccc\\       _                                       M
-M       |ccccccccc)     //    Charlotte >> August 3-6            M
+M       |ccccccccc)     //    Charlotte  >>  Jan 13-16 2020      M
 M       |cccccc|=      //               Charlotte, NC            M
 M      /°°°°°°”-.     (CCCC)                                     M
 M      ;----._  _._   |cccc|                                     M

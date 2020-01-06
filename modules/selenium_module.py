@@ -24,6 +24,7 @@ except ImportError:
     print('[*] Please run the script in the setup directory!')
     sys.exit()
 
+from modules.helpers import do_delay
 
 def create_driver(cli_parsed, user_agent=None):
     """Creates a selenium FirefoxDriver
@@ -46,10 +47,23 @@ def create_driver(cli_parsed, user_agent=None):
     if cli_parsed.user_agent is not None:
         profile.set_preference(
             'general.useragent.override', cli_parsed.user_agent)
-    
+
     # This user agent case should only be hit when cycling
     if user_agent is not None:
         profile.set_preference('general.useragent.override', user_agent)
+
+    # Set up our proxy information directly in the firefox profile
+    if cli_parsed.proxy_ip is not None and cli_parsed.proxy_port is not None:
+        profile.set_preference('network.proxy.type', 1)
+        if "socks" in cli_parsed.proxy_type:
+            profile.set_preference('network.proxy.socks', cli_parsed.proxy_ip)
+            profile.set_preference('network.proxy.socks_port', cli_parsed.proxy_port)
+        else:
+            profile.set_preference('network.proxy.http', cli_parsed.proxy_ip)
+            profile.set_preference(
+                'network.proxy.http_port', cli_parsed.proxy_port)
+            profile.set_preference('network.proxy.ssl', cli_parsed.proxy_ip)
+            profile.set_preference('network.proxy.ssl_port', cli_parsed.proxy_port)
 
     profile.set_preference('app.update.enabled', False)
     profile.set_preference('browser.search.update', False)
@@ -161,6 +175,9 @@ def capture_host(cli_parsed, http_object, driver, ua=None):
             alert.dismiss()
         except Exception as e:
             pass
+
+    do_delay(cli_parsed)
+
     # Save our screenshot to the specified directory
     try:
         driver.save_screenshot(http_object.screenshot_path)
