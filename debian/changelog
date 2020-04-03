@@ -1,3 +1,12 @@
+eyewitness (3.1-0kali1) kali-dev; urgency=medium
+
+  * New upstream version 3.1
+  * Refresh debian/patches
+  * Update packaging for new upstream release
+  * Bump Standards-Version to 4.5.0
+
+ -- Sophie Brun <sophie@offensive-security.com>  Fri, 03 Apr 2020 10:42:10 +0200
+
 eyewitness (3.0.2-0kali1) kali-dev; urgency=medium
 
   * New upstream version 3.0.2
