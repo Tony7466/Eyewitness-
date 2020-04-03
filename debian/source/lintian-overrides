@@ -1,2 +1,2 @@
 # keep embedded version of .js files
-eyewitness source: source-is-missing bin/*
+eyewitness source: source-is-missing Python/bin/*

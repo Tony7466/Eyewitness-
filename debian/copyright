@@ -21,17 +21,17 @@ License: GPL-3+
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
 
-Files: bin/bootstrap.*
+Files: Python/bin/bootstrap.*
 Copyright: 2011-2017 The Bootstrap Authors
            2011-2017 Twitter, Inc.
 License: MIT
 
-Files: bin/dataTables.bootstrap4.min.js
- bin/jquery.dataTables.min.js
+Files: Python/bin/dataTables.bootstrap4.min.js
+ Python/bin/jquery.dataTables.min.js
 Copyright: 2011-2015 SpryMedia Ltd
 License: MIT
 
-Files: bin/jquery*
+Files: Python/bin/jquery*
 Copyright: JS Foundation and other contributors
 License: MIT
 

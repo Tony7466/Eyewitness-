@@ -1,6 +1,3 @@
-*.py usr/share/eyewitness/
-*.txt usr/share/eyewitness/
-bin usr/share/eyewitness/
+Python/* usr/share/eyewitness/
 debian/helper-script/eyewitness usr/bin/
 geckodriver usr/bin
-modules usr/share/eyewitness/
