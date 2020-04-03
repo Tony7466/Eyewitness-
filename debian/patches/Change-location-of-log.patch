@@ -3,13 +3,13 @@ Date: Tue, 7 Jan 2020 11:01:59 +0100
 Subject: Change location of log
 
 ---
- EyeWitness.py | 2 ++
+ Python/EyeWitness.py | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/EyeWitness.py b/EyeWitness.py
+diff --git a/Python/EyeWitness.py b/Python/EyeWitness.py
 index 6fe7fab..a10a09e 100755
---- a/EyeWitness.py
-+++ b/EyeWitness.py
+--- a/Python/EyeWitness.py
++++ b/Python/EyeWitness.py
 @@ -10,6 +10,8 @@ import sys
  import time
  import webbrowser

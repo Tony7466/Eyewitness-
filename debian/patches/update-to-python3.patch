@@ -4,15 +4,17 @@ Subject: Switch to Python 3
 
 Last-Update: 2019-10-10
 ---
- MiktoList.py    | 20 ++++++++++----------
- Recategorize.py | 22 +++++++++++-----------
- Search.py       | 22 +++++++++++-----------
- 3 files changed, 32 insertions(+), 32 deletions(-)
+ Python/MiktoList.py       | 22 +++++++++++-----------
+ Python/Recategorize.py    | 24 ++++++++++++------------
+ Python/Search.py          | 24 ++++++++++++------------
+ Python/modules/helpers.py |  8 ++++----
+ Python/modules/objects.py |  2 +-
+ 5 files changed, 40 insertions(+), 40 deletions(-)
 
-diff --git a/MiktoList.py b/MiktoList.py
-index 133824d..870e1f0 100755
---- a/MiktoList.py
-+++ b/MiktoList.py
+diff --git a/Python/MiktoList.py b/Python/MiktoList.py
+index 133824d..78553ae 100755
+--- a/Python/MiktoList.py
++++ b/Python/MiktoList.py
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env python
 +#!/usr/bin/env python3
@@ -28,8 +30,9 @@ index 133824d..870e1f0 100755
          while True:
              try:
 -                response = raw_input().lower()
+-                if response is "":
 +                response = input().lower()
-                 if response is "":
++                if response == "":
                      return True
                  else:
                      return strtobool(response)
@@ -64,10 +67,10 @@ index 133824d..870e1f0 100755
 -    print 'Wrote {0} URLs to {1}'.format(len(results), outfile)
 \ No newline at end of file
 +    print(('Wrote {0} URLs to {1}'.format(len(results), outfile)))
-diff --git a/Recategorize.py b/Recategorize.py
-index 674771d..01641c1 100755
---- a/Recategorize.py
-+++ b/Recategorize.py
+diff --git a/Python/Recategorize.py b/Python/Recategorize.py
+index 674771d..5edb53f 100755
+--- a/Python/Recategorize.py
++++ b/Python/Recategorize.py
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env python
 +#!/usr/bin/env python3
@@ -83,8 +86,9 @@ index 674771d..01641c1 100755
          while True:
              try:
 -                response = raw_input().lower()
+-                if response is "":
 +                response = input().lower()
-                 if response is "":
++                if response == "":
                      return True
                  else:
                      return strtobool(response)
@@ -126,10 +130,10 @@ index 674771d..01641c1 100755
 -        sys.exit()
 \ No newline at end of file
 +        sys.exit()
-diff --git a/Search.py b/Search.py
-index 30f14cf..a4e0caf 100755
---- a/Search.py
-+++ b/Search.py
+diff --git a/Python/Search.py b/Python/Search.py
+index 30f14cf..38d153d 100755
+--- a/Python/Search.py
++++ b/Python/Search.py
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env python
 +#!/usr/bin/env python3
@@ -145,8 +149,9 @@ index 30f14cf..a4e0caf 100755
          while True:
              try:
 -                response = raw_input().lower()
+-                if response is "":
 +                response = input().lower()
-                 if response is "":
++                if response == "":
                      return True
                  else:
                      return strtobool(response)
@@ -187,3 +192,56 @@ index 30f14cf..a4e0caf 100755
      cli_parsed = dbm.get_options()
      cli_parsed.results = 25
      cli_parsed.d = os.path.dirname(db_path)
+diff --git a/Python/modules/helpers.py b/Python/modules/helpers.py
+index 79105fe..1d21a35 100644
+--- a/Python/modules/helpers.py
++++ b/Python/modules/helpers.py
+@@ -595,7 +595,7 @@ def title_screen():
+     print("#" * 80 + "\n")
+ 
+     python_info = sys.version_info
+-    if python_info[0] is not 3:
++    if python_info[0] != 3:
+         print("[*] Error: Your version of python is not supported!")
+         print("[*] Error: Please install Python 3.X.X")
+         sys.exit()
+@@ -626,7 +626,7 @@ def do_jitter(cli_parsed):
+     Returns:
+         TYPE: Description
+     """
+-    if cli_parsed.jitter is not 0:
++    if cli_parsed.jitter != 0:
+         sleep_value = random.randint(0, 30)
+         sleep_value = sleep_value * .01
+         sleep_value = 1 - sleep_value
+@@ -646,7 +646,7 @@ def do_delay(cli_parsed):
+     Returns:
+         TYPE: Description
+     """
+-    if cli_parsed.delay is not 0:
++    if cli_parsed.delay != 0:
+         sleep_value = cli_parsed.delay
+         print("[*] Sleeping for " + str(sleep_value) + " seconds before taking the screenshot")
+         try:
+@@ -816,7 +816,7 @@ def open_file_input(cli_parsed):
+         while True:
+             try:
+                 response = input().lower()
+-                if response is "":
++                if response == "":
+                     return True
+                 else:
+                     return strtobool(response)
+diff --git a/Python/modules/objects.py b/Python/modules/objects.py
+index 06fbb3e..cbb969f 100644
+--- a/Python/modules/objects.py
++++ b/Python/modules/objects.py
+@@ -212,7 +212,7 @@ class HTTPTableObject(object):
+             <a href=\"{address}\" target=\"_blank\">{address}</a><br>
+             """).format(address=self.remote_system)
+ 
+-        if self.resolved is not None and self.resolved is not 'Unknown':
++        if self.resolved != None and self.resolved != 'Unknown':
+             html += ("""<b>Resolved to:</b> {0}<br>""").format(self.resolved)
+ 
+         if len(self._uadata) > 0:
