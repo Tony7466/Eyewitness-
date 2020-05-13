@@ -35,6 +35,10 @@ Files: Python/bin/jquery*
 Copyright: JS Foundation and other contributors
 License: MIT
 
+Files: CS/packages/CommandLineParser.2.7.82/*
+Copyright: 2005 - 2015 Giacomo Stelluti Scala & Contributors
+License: MIT
+
 Files: debian/*
 Copyright: 2014 Devon Kearns <dookie@kali.org>
 License: GPL-2+
