@@ -5,6 +5,8 @@ userid=`id -u`
 osinfo=`cat /etc/issue|cut -d" " -f1|head -n1`
 distinfo=`cat /etc/issue|cut -d" " -f2|head -n1`
 eplpkg='http://linux.mirrors.es.net/fedora-epel/6/i386/epel-release-6-8.noarch.rpm'
+geckodriver_x86_64='https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz'
+geckodriver_x86_32='https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz'
 
 # Setting environment variables
 export TERM=linux
@@ -43,7 +45,7 @@ case ${osinfo} in
   Kali2)
     apt-get update
     echo '[*] Installing Debian Dependencies'
-    apt-get install -y cmake python3 xvfb python3-pip python-netaddr python3-dev tesseract-ocr firefox-esr
+    apt-get install -y cmake python3 xvfb python3-pip python3-netaddr python3-dev tesseract-ocr firefox-esr
     echo '[*] Upgrading paramiko'
     python3 -m pip install --upgrade paramiko
     echo
@@ -60,7 +62,7 @@ case ${osinfo} in
     cd ../bin/
     MACHINE_TYPE=`uname -m`
     if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      wget ${geckodriver_x86_64}
       tar -xvf geckodriver-v0.26.0-linux64.tar.gz
       rm geckodriver-v0.26.0-linux64.tar.gz
       mv geckodriver /usr/sbin
@@ -70,7 +72,7 @@ case ${osinfo} in
       fi
       ln -s /usr/sbin/geckodriver /usr/bin/geckodriver
     else
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz
+      wget ${geckodriver_x86_32}
       tar -xvf geckodriver-v0.26.0-linux32.tar.gz
       rm geckodriver-v0.26.0-linux32.tar.gz
       mv geckodriver /usr/sbin
@@ -86,7 +88,7 @@ case ${osinfo} in
   Kali)
     apt-get update
     echo '[*] Installing Debian Dependencies'
-    apt-get install -y cmake python3 xvfb python3-pip python-netaddr python3-dev tesseract-ocr firefox-esr
+    apt-get install -y cmake python3 xvfb python3-pip python3-netaddr python3-dev tesseract-ocr firefox-esr
     echo '[*] Upgrading paramiko'
     python3 -m pip install --upgrade paramiko
     echo
@@ -103,7 +105,7 @@ case ${osinfo} in
     cd ../bin/
     MACHINE_TYPE=`uname -m`
     if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      wget ${geckodriver_x86_64}
       tar -xvf geckodriver-v0.26.0-linux64.tar.gz
       rm geckodriver-v0.26.0-linux64.tar.gz
       mv geckodriver /usr/sbin
@@ -113,7 +115,7 @@ case ${osinfo} in
       fi
       ln -s /usr/sbin/geckodriver /usr/bin/geckodriver
     else
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz
+      wget ${geckodriver_x86_32}
       tar -xvf geckodriver-v0.26.0-linux32.tar.gz
       rm geckodriver-v0.26.0-linux32.tar.gz
       mv geckodriver /usr/sbin
@@ -129,7 +131,7 @@ case ${osinfo} in
   Parrot)
     apt-get update
     echo '[*] Installing Debian Dependencies'
-    apt-get install -y cmake python3 xvfb python3-pip python-netaddr python3-dev tesseract-ocr firefox-esr
+    apt-get install -y cmake python3 xvfb python3-pip python3-netaddr python3-dev tesseract-ocr firefox-esr
     echo '[*] Upgrading paramiko'
     python3 -m pip install --upgrade paramiko
     echo
@@ -146,7 +148,7 @@ case ${osinfo} in
     cd ../bin/
     MACHINE_TYPE=`uname -m`
     if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      wget ${geckodriver_x86_64}
       tar -xvf geckodriver-v0.26.0-linux64.tar.gz
       rm geckodriver-v0.26.0-linux64.tar.gz
       mv geckodriver /usr/sbin
@@ -156,7 +158,7 @@ case ${osinfo} in
       fi
       ln -s /usr/sbin/geckodriver /usr/bin/geckodriver
     else
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz
+      wget ${geckodriver_x86_32}
       tar -xvf geckodriver-v0.26.0-linux32.tar.gz
       rm geckodriver-v0.26.0-linux32.tar.gz
       mv geckodriver /usr/sbin
@@ -172,7 +174,7 @@ case ${osinfo} in
   Debian)
     apt-get update
     echo '[*] Installing Debian Dependencies'
-    apt-get install -y cmake python3 xvfb python3-pip python-netaddr python3-dev tesseract-ocr firefox-esr
+    apt-get install -y cmake python3 xvfb python3-pip python3-netaddr python3-dev tesseract-ocr firefox-esr
     echo '[*] Upgrading paramiko'
     python3 -m pip install --upgrade paramiko
     echo
@@ -189,7 +191,7 @@ case ${osinfo} in
     cd ../bin/
     MACHINE_TYPE=`uname -m`
     if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      wget ${geckodriver_x86_64}
       tar -xvf geckodriver-v0.26.0-linux64.tar.gz
       rm geckodriver-v0.26.0-linux64.tar.gz
       mv geckodriver /usr/sbin
@@ -199,7 +201,7 @@ case ${osinfo} in
       fi
       ln -s /usr/sbin/geckodriver /usr/bin/geckodriver
     else
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz
+      wget ${geckodriver_x86_32}
       tar -xvf geckodriver-v0.26.0-linux32.tar.gz
       rm geckodriver-v0.26.0-linux32.tar.gz
       mv geckodriver /usr/sbin
@@ -215,7 +217,7 @@ case ${osinfo} in
   Ubuntu)
     apt-get update
     echo '[*] Installing Ubuntu Dependencies'
-    apt-get install -y cmake python3 xvfb python3-pip python-netaddr python3-dev tesseract-ocr firefox x11-utils
+    apt-get install -y cmake python3 xvfb python3-pip python3-netaddr python3-dev tesseract-ocr firefox x11-utils
     pip3 install --upgrade pip
     echo '[*] Upgrading paramiko'
     python3 -m pip install --upgrade paramiko
@@ -233,7 +235,7 @@ case ${osinfo} in
     cd ../bin/
     MACHINE_TYPE=`uname -m`
     if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      wget ${geckodriver_x86_64}
       tar -xvf geckodriver-v0.26.0-linux64.tar.gz
       rm geckodriver-v0.26.0-linux64.tar.gz
       mv geckodriver /usr/sbin
@@ -243,7 +245,7 @@ case ${osinfo} in
       fi
       ln -s /usr/sbin/geckodriver /usr/bin/geckodriver
     else
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz
+      wget ${geckodriver_x86_32}
       tar -xvf geckodriver-v0.26.0-linux32.tar.gz
       rm geckodriver-v0.26.0-linux32.tar.gz
       mv geckodriver /usr/sbin
@@ -259,7 +261,7 @@ case ${osinfo} in
   Arch | Manjaro)
     pacman -Syu
     echo '[*] Installing Arch Dependencies'
-    pacman -S cmake python3 python-xvfbwrapper python-pip python-netaddr firefox
+    pacman -S cmake python3 python-xvfbwrapper python-pip python3-netaddr firefox
     echo '[*] Upgrading paramiko'
     python3 -m pip install --upgrade paramiko
     echo
@@ -276,7 +278,7 @@ case ${osinfo} in
     cd ../bin/
     MACHINE_TYPE=`uname -m`
     if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      wget ${geckodriver_x86_64}
       tar -xvf geckodriver-v0.26.0-linux64.tar.gz
       rm geckodriver-v0.26.0-linux64.tar.gz
       mv geckodriver /usr/sbin
@@ -286,7 +288,7 @@ case ${osinfo} in
       fi
       ln -s /usr/sbin/geckodriver /usr/bin/geckodriver
     else
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz
+      wget ${geckodriver_x86_32}
       tar -xvf geckodriver-v0.26.0-linux32.tar.gz
       rm geckodriver-v0.26.0-linux32.tar.gz
       mv geckodriver /usr/sbin
@@ -305,7 +307,7 @@ case ${osinfo} in
     Mint)
       apt-get update
       echo '[*] Installing Mint Dependencies'
-      apt-get install -y cmake python3 xvfb python3-pip python-netaddr python3-dev tesseract-ocr firefox x11-utils
+      apt-get install -y cmake python3 xvfb python3-pip python3-netaddr python3-dev tesseract-ocr firefox x11-utils
       pip3 install --upgrade pip
       echo '[*] Upgrading paramiko'
       python3 -m pip install --upgrade paramiko
@@ -323,7 +325,7 @@ case ${osinfo} in
       cd ../bin/
       MACHINE_TYPE=`uname -m`
       if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-        wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+        wget ${geckodriver_x86_64}
         tar -xvf geckodriver-v0.26.0-linux64.tar.gz
         rm geckodriver-v0.26.0-linux64.tar.gz
         mv geckodriver /usr/sbin
@@ -333,7 +335,7 @@ case ${osinfo} in
         fi
         ln -s /usr/sbin/geckodriver /usr/bin/geckodriver
       else
-        wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz
+        wget ${geckodriver_x86_32}
         tar -xvf geckodriver-v0.26.0-linux32.tar.gz
         rm geckodriver-v0.26.0-linux32.tar.gz
         mv geckodriver /usr/sbin
