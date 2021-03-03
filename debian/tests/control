@@ -1,2 +1,2 @@
-Test-Command: eyewitness -h
+Test-Command: export TERM=vt100 && eyewitness -h
 Restrictions: superficial
