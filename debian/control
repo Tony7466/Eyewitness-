@@ -2,7 +2,7 @@ Source: eyewitness
 Section: utils
 Priority: optional
 Maintainer: Kali Developers <devel@kali.org>
-Uploaders: Devon Kearns <dookie@kali.org>
+Uploaders: Sophie Brun <sophie@offensive-security.com>
 Build-Depends: ca-certificates,
                debhelper-compat (= 12),
                dh-python,
