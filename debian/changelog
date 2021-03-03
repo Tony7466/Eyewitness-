@@ -1,6 +1,12 @@
 eyewitness (20210302.1-0kali1) kali-dev; urgency=medium
 
   * New upstream version 20210302.1
+  * debian/watch: user version=4
+  * Bump Standards-Version to 4.5.1
+  * Update Uploaders
+  * Fix debian/copyright
+  * Update lintian-overrides
+  * Define TERM environment variable for autopkgtest
 
  -- Sophie Brun <sophie@offensive-security.com>  Wed, 03 Mar 2021 09:15:17 +0100
 
