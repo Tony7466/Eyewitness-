@@ -182,6 +182,6 @@ eyewitness (1.0-0kali2) kali-dev; urgency=medium
 
 eyewitness (1.0-0kali1) kali; urgency=low
 
-  * Initial release (Closes: 0001064)  
+  * Initial release (Closes: 0001064)
 
  -- Devon Kearns <dookie@kali.org>  Thu, 27 Feb 2014 14:28:47 -0700
