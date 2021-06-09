@@ -1,3 +1,9 @@
+eyewitness (20210607.1-0kali1) kali-dev; urgency=medium
+
+  * New upstream version 20210607.1
+
+ -- Sophie Brun <sophie@offensive-security.com>  Wed, 09 Jun 2021 10:14:11 +0200
+
 eyewitness (20210503.2-0kali1) kali-dev; urgency=medium
 
   [ Kali Janitor ]
