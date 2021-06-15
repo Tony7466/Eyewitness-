@@ -1,3 +1,9 @@
+eyewitness (20210614.2-0kali1) kali-dev; urgency=medium
+
+  * New upstream version 20210614.2
+
+ -- Sophie Brun <sophie@offensive-security.com>  Tue, 15 Jun 2021 10:26:11 +0200
+
 eyewitness (20210607.1-0kali1) kali-dev; urgency=medium
 
   * New upstream version 20210607.1
