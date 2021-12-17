@@ -1,3 +1,16 @@
+eyewitness (20211215.1-0kali1) kali-dev; urgency=medium
+
+  [ Ben Wilson ]
+  * Update email address
+  * New helper-script format
+  * New helper-script format
+  * Consistency with tabs to spaces
+
+  [ Sophie Brun ]
+  * New upstream version 20211215.1
+
+ -- Sophie Brun <sophie@offensive-security.com>  Fri, 17 Dec 2021 10:53:13 +0100
+
 eyewitness (20211110.1-0kali1) kali-dev; urgency=medium
 
   * New upstream version 20211110.1
