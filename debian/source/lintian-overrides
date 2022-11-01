@@ -1,3 +1,3 @@
 # keep embedded version of .js files
-eyewitness source: source-is-missing Python/bin/*
-source-contains-prebuilt-windows-binary CS/packages/*
+eyewitness source: source-is-missing [Python/bin/*]
+source-contains-prebuilt-windows-binary [CS/packages/*]
