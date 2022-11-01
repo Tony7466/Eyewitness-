@@ -9,7 +9,7 @@ Build-Depends: ca-certificates,
                python3-all-dev,
                python3-setuptools,
                wget
-Standards-Version: 4.6.0
+Standards-Version: 4.6.1
 Homepage: https://www.christophertruncer.com/eyewitness-triage-tool/
 Vcs-Git: https://gitlab.com/kalilinux/packages/eyewitness.git
 Vcs-Browser: https://gitlab.com/kalilinux/packages/eyewitness
