@@ -41,6 +41,9 @@ namespace EyeWitness
             [Option('f', "file", Group = "Input Source", HelpText = "Specify a new-line separated file of URLs", Default = null)]
             public string File { get; set; }
 
+            [Option('i', "cidr", Group = "Input Source", HelpText = "Specify an IP CIDR", Default = null)]
+            public string IpAddresses { get; set; }
+
             [Option('o', "output", Required = false, HelpText = "Specify an output directory (one will be created if non-existent)", Default = null)]
             public string Output { get; set; }
 
@@ -132,26 +135,33 @@ namespace EyeWitness
 
             //Create dictionary of categories
             categoryRankDict.Add("highval", new object[] { "High Value Targets", 0 });
+            categoryRankDict.Add("comms", new object[] { "Communications", 0 });
+            categoryRankDict.Add("devops", new object[] { "Development Operations", 0 });
+            categoryRankDict.Add("secops", new object[] { "Security Operations", 0 });
+            categoryRankDict.Add("appops", new object[] { "Application Operations", 0 });
+            categoryRankDict.Add("dataops", new object[] { "Data Operations", 0 });
             categoryRankDict.Add("dirlist", new object[] { "Directory Listings", 0 });
-            categoryRankDict.Add("None", new object[] { "Uncategorized", 0 });
-            categoryRankDict.Add("uncat", new object[] { "Uncategorized", 0 });
             categoryRankDict.Add("cms", new object[] { "Content Management System (CMS)", 0 });
             categoryRankDict.Add("idrac", new object[] { "IDRAC/ILo/Management Interfaces", 0 });
             categoryRankDict.Add("nas", new object[] { "Network Attached Storage (NAS)", 0 });
-            categoryRankDict.Add("construction", new object[] { "Under Construction", 0 });
             categoryRankDict.Add("netdev", new object[] { "Network Devices", 0 });
             categoryRankDict.Add("voip", new object[] { "Voice/Video over IP (VoIP)", 0 });
-            categoryRankDict.Add("unauth", new object[] { "401/403 Unauthorized", 0 });
-            categoryRankDict.Add("notfound", new object[] { "404 Not Found", 0 });
+            categoryRankDict.Add("None", new object[] { "Uncategorized", 0 });
+            categoryRankDict.Add("uncat", new object[] { "Uncategorized", 0 });
             categoryRankDict.Add("crap", new object[] { "Splash Pages", 0 });
             categoryRankDict.Add("printer", new object[] { "Printers", 0 });
+            categoryRankDict.Add("infrastructure", new object[] { "Infrastructure", 0 });
             categoryRankDict.Add("successfulLogin", new object[] { "Successful Logins", 0 });
             categoryRankDict.Add("identifiedLogin", new object[] { "Identified Logins", 0 });
-            categoryRankDict.Add("infrastructure", new object[] { "Infrastructure", 0 });
             categoryRankDict.Add("redirector", new object[] { "Redirecting Pages", 0 });
+            categoryRankDict.Add("construction", new object[] { "Under Construction", 0 });
+            categoryRankDict.Add("emptyu", new object[] { "No Significant Content", 0 });
+            categoryRankDict.Add("unauth", new object[] { "401/403 Unauthorized", 0 });
+            categoryRankDict.Add("notfound", new object[] { "404 Not Found", 0 });
             categoryRankDict.Add("badhost", new object[] { "Invalid Hostname", 0 });
             categoryRankDict.Add("inerror", new object[] { "Internal Error", 0 });
             categoryRankDict.Add("badreq", new object[] { "Bad Request", 0 });
+            categoryRankDict.Add("badgw", new object[] { "Bad Gateway", 0 });
             categoryRankDict.Add("serviceunavailable", new object[] { "Service Unavailable", 0 });
 
 
@@ -505,6 +515,30 @@ namespace EyeWitness
                             Console.WriteLine("[-] ERROR: The file containing the URLS to scan does not exist!");
                             Console.WriteLine("[-] ERROR: Please make sure you've provided the correct filepath and try again.");
                             System.Environment.Exit(1);
+                        }
+                    }
+
+                    if (o.IpAddresses != null)
+                    {
+                        Console.WriteLine("[+] Using IP addresses");
+
+                        try
+                        {
+                            if (!IPNetwork.TryParse(o.IpAddresses, out var parsed))
+                            {
+                                Console.WriteLine("[-] ERROR: Failed to parse IP Addresses");
+                                return;
+                            }
+
+                            var ipAddress = parsed.ListIPAddress().Distinct().ToList();
+                            var strings = new List<string>();
+                            ipAddress.ForEach(i => strings.Add(i.ToString()));
+                            allUrls = strings.ToArray();
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"[-] ERROR: {e.Message}");
+                            return;
                         }
                     }
 

@@ -215,7 +215,7 @@ parse the RedirectUrl;RedirectQueryString;nameArray;nameArray["RedirectQueryStri
 <title>Log In</title>;title="Go to CA Network Flow Analysis" class="login-page-logo";Network Flow Analysis</span>|CA Network Flow Analysis admin/admin
 <p id="powered">Powered by <a href="http://www.ruckuswireless.com">Ruckus Wireless</a></p>;<tr><th>Admin Name</th><td><input class="login_input";<tr><th>Password</th><td><input class="login_input";<title>Log In</title>|Ruckus Wireless admin/password or super/sp-admin
 <link rel="stylesheet" href="resources/webLogin-all.css">;<title>Polycom Login</title>;<meta http-equiv="X-UA-Compatible" content="IE=edge">;Password:</label></div></div></div>;type="text" role="textbox" size="1" name="userName" class="x-form-field x-form-text|Polycom Wireless Polycom/123 (user) Polycom/456 (admin)
-<title>WebTools | Home</title>;<td align="left" valign="middle" class="name">XeroxC70;set_status_refresh_interval|Xerox C70 Printer admin/1111
+<title>WebTools;Home</title>;<td align="left" valign="middle" class="name">XeroxC70;set_status_refresh_interval|Xerox C70 Printer admin/1111
 <title>S2 Netbox Login</title>;<!--License IFRAME HERE GOES HERE-->;div id="headerframe"|S2 Netbox admin/admin
 <title>Remote Support Portal;Powered by BOMGAR</title>;exitSurveyBox;Show Representatives Help Window;/content/access_key_input.js|Bomgar Device admin/password
 <title>Pritunl</title>;<link rel="icon" type="image/x-icon" href;onSubmit();login-form;var duoUserInput = document.getElementById('duo-username')|Pritunl VPN pritunl/pritunl
@@ -313,7 +313,7 @@ Internet Services;window.document.body.scrollTop;href="JavaScript:parent.fflip;p
 <title>Altova LicenseServer</title>;<span>Please wait...</span>;<div id="statusErrorMessage";<p class="legalese">|Altova License Server <nousername>/default
 Nimble Storage;/assets/vendor;/oem/settings.js;<!-- Username field -->;data-ember-modal-dialog-overlay|Nimble Storage admin/admin
 <title>Welcome to JBoss™</title>;JBoss Online Resources;<h3>JBoss Management</h3>;href="/status">Tomcat status</a>|JBOSS JMX Console superadmin/superadmin
-<title>APC | Log On</title>;function isValidBrowser();class="applyCancel"|APC Smart UPS readonly/apc
+<title>APC;Log On</title>;function isValidBrowser();class="applyCancel"|APC Smart UPS readonly/apc
 <head><title>U</title></head>;client-side JavaScript client sniff;client-side JavaScript client sniff|Sensaphone IMS-4000 admin/ims1k
 <title>Liebert IntelliSlot Web Card</title>;var appObj = new Object();document.appObj= appObj|Liebert IntelliSlot Web Card Liebert/Liebert
 <title>Lexmark CS725</title>;<img src="/images/printer_logo.png";role="heading">Embedded Web Server</div>|Lexmark CS725 <nousername>/00000
@@ -334,7 +334,7 @@ var jumpProt = jumpURL.substr(0,6).toLowerCase();var argc = setCookie.arguments.
 <title>Netman 204 login</title>;<form id="login" action="cgi-bin/login.cgi";onsubmit="this.submit.disabled='disabled';action="cgi-bin/view.cgi"|NetMan 204 admin/admin fwupgrade/fwupgrade user/user
 <title>DS-510</title>;<frameset rows="90,*" frameborder="0" framespacing="0" border="0">;<frameset rows="90,*" frameborder="0" framespacing="0" border="0">;<frame src="/en/top.htm" name="top" noresize="" scrolling="no">|Silex Print Server root/<nopassword>
 <title>AlienVault OSSIM;<title>AlienVault OSSIM;form name="f_login" id="f_login" method="POST"|Alienvault admin/admin
-<base href="/sysmgr/">;nwf-loading-indicator class="nwf-loading";upport-href="{{ 'supportHref' | Vendorizer }}|NetApp OnCommand System Manager admin/admin123
+<base href="/sysmgr/">;nwf-loading-indicator class="nwf-loading";upport-href="{{ 'supportHref'|NetApp OnCommand System Manager admin/admin123
 <title>IBM TS7700</title>;<div class="deviceImage"></div>;"productnameLabelSpan">Storage Management|IBM TS7700 admin/admin
 <title>Login</title>;function initDHTMLAPI() {;var cacUserName = "";hideElement("trInitName", "trInitPwd");name="login_saml" id="login_saml_form"|Palo Alto Firewall admin/admin
 <title>NETGEAR ProSAFE Plus Switch</title>;<div id="mainArea" class="mainArea";<a id="loginBtn" class="loginBtnStyle"|NetGear Switch nousername/password
@@ -375,3 +375,42 @@ uiApp" ng-controller="GlobalCtrl";Unitrends + Page.title();initial-scale=|Kaseya
 <title>Ansible AWX </title>;ng-transclude=;systemAdminOnly;layoutVm.isSuperUser|Ansible AWX admin / password
 <title>Login</title>;STACK_SERIAL_NO;NETWORK_CONFIG_HOST;NETWORK_STATUS_IPV4_ADDRESS;logAdminPwd|HPE StoreEver Device administrator / 00000000
 <title>YPI Zabbix: Zabbix</title>;Remember me for 30 days;var PHP_TZ_OFFSET| Zabbix Admin/zabbix
+Lenovo Storage V3700 V2;dojoConfig;aspenSdlLogin| superuser / passw0rd
+div id="pmcHeaderLogo" class="pmcHeaderLogo";customMessage;pmcFormLabel| hscroot / abc123
+<title>Netgear</title>;mainFrameset;login_header.php;thirdMenu.html| admin / password
+<title>NetMan 204</title>;webgl no-touch geolocation;reboot-info| admin / admin
+IBM FlashSystem 5000;com.ibm.svc.gui.rpc.dependencies;VOLUME_GROUP_ID| superuser / passw0rd
+<title>ManageEngine ServiceDesk Plus</title>;var isMSP =;OUTPUTENCODING| administrator / administrator
+<title>ManageEngine - ADManager Plus</title>;adsf/js/common/jquery;showDefaultLogin| admin / admin
+<title>Log In</title>;<h1><img src="/shared/ibmbch.png" alt="IBM BladeCenter H Advanced Management Module| USERID / PASSW0RD
+<title>Login</title>;var caution = false;SaveData;document.form1.RememberID.checked| admin / admin or 0000  / 0000 or admin  / 0000
+<title>Login</title>;aspireLogin.png;User Name</td>;type="password| ASPIRE / 12345678
+<title>Login</title>;seajsnode;Enable Signal;oWifi.bSupportWifiRegion| admin / 12345 or admin / 123456 or admin / admin
+<title>EMC Unisphere</title>;LoginPage;LoginVersionAndProduct| admin / 123#
+iR-ADV C3725</title>;show_alert_dialog;show_max_dialog;alt="CANON"| administrator / 7654321
+<title>Data Domain System Manager</title>;SYSTEM_MANAGER;loginTitle;placeholder="Password"| sysadmin / Idpa_1234
+<title>CS141 Webmanager</title>;clickmenu;CS141TThide| admin / cs141-snmp or engineer / engineer or guest / guest
+<title>Avery Dennison Web Interface</title>;frameset| operator / 0000 or manager / abcd or admin / 1234
+<title>ArcSight</title>;function refresh;window.location.replace("/arcsight/")| root / arcsight
+Digi Connect ME;Configuration and Management;initPage;err.clearErrors()| root / dbps
+<title>Advanced System Management</title>;banner_frame;toc_frame;form_frame| admin / admin or general / general
+<title>Integrated Lights Out 2;setTimeout;redirectFnc;Hewlett Packard| Admin / Admin or Oper / Oper
+<title>iRMC S4;Checkbox2id;PRIMERGY;LanguageSeparator| admin / admin
+g_strLanguage;g_bHasNote;g_strFirmware;<title>Yealink;loginbox| admin / admin
+<title id="main-page-title">TrueNAS;apple-touch-icon;msapplication| root / abcd1234
+IBM FlashSystem 5200;lib-prod/assets/css/Aspen;FlashCopyMappingsSnapshot| superuser / passw0rd
+<title>Welcome to Service Assistant</title>;svg focusable;mg alt="Java"| superuser / passw0rd
+<title>Top Page - MX-M453N</title>;function loginSubmit(mode);class="invisible"| administrator / admin
+<title>KONICA MINOLTA PageScope Web Connection</title>;popupCopyright;index.cgi| 12345678
+<title>windows_exporter</title></head>;<a href="/metrics">| Prometheus Metrics no auth /metrics
+www.solarwinds.com/documentation/dpa;action="login.iwc"| Solar Winds Database Performance Analyzer / admin / blank
+<title>RabbitMQ Management| guest /guest - admin / changeme
+ng-app="esxUiApp">;ng-bind="$root.title"| VmWare ESXi (creds set at install)
+<title id="loginTitle"></title>;by Cisco Systems, Inc| Cisco Webui - webui / cisco
+<title>Klocwork| klocwork / changeit
+<title>Universal Login Manager</title>;widgets_ulm_dispacher;GlobalMenuTopRight| 7654321 / 7654321
+var panels = {};applicationLoading;loginInputContainer;PowerVault Manager| manage / !manage
+ADMdtpDays;ObjTypeCtrl_CentaurSvr;ObjTypeCtrl_EmailSettings;ObjTypeCtrl_RfUniversalRcv| admin / admin
+<title>Lexmark CX725</title>;gridcell;nonjslink;CustomExport| No default username or pass
+select class="direct_ip_assignment_select" name="direct_ip_assignment";pppoe_op pppoe_ip_op;changed_setting_swports_adjust|admin / 1111 or admin / printer serial number
+meraki-logo.png;firmware_check_text_updating;encryption_m;backend_access_proxy_password|Login is Device Serial Number with no Pass
