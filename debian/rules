@@ -3,9 +3,9 @@
 DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 
 ifeq ($(DEB_BUILD_ARCH),amd64)
-	filename="geckodriver-v0.26.0-linux64.tar.gz"
+	filename="geckodriver-v0.32.0-linux64.tar.gz"
 else
-	filename="geckodriver-v0.26.0-linux32.tar.gz"
+	filename="geckodriver-v0.32.0-linux32.tar.gz"
 endif
 
 %:
@@ -13,7 +13,7 @@ endif
 
 override_dh_auto_build:
 	dh_auto_build
-	wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/$(filename)
+	wget https://github.com/mozilla/geckodriver/releases/download/v0.32.0/$(filename)
 	tar -xvf $(filename)
 	rm $(filename)
 
