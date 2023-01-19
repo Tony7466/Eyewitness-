@@ -1,3 +1,19 @@
+eyewitness (20221203.1-0kali1) kali-dev; urgency=medium
+
+  [ Kali Janitor ]
+  * Update lintian override info to new format on line 2, 3.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository-Browse.
+  * Update standards version to 4.6.1, no changes needed.
+
+  [ Sophie Brun ]
+  * New upstream version 20221203.1
+  * Refresh patches
+  * Update lintian-overrides
+  * Use recent geckodriver (see 8149)
+  * Add version requirement of python3-selenium (with fix for 8149)
+
+ -- Sophie Brun <sophie@offensive-security.com>  Thu, 19 Jan 2023 09:56:50 +0100
+
 eyewitness (20220803.1-0kali1) kali-dev; urgency=medium
 
   * New upstream version 20220803.1
