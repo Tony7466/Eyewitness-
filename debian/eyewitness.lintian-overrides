@@ -1,5 +1,5 @@
 # keep embedded version of .js files
-embedded-javascript-library usr/share/eyewitness/bin/jquery*
+embedded-javascript-library please use libjs-jquery [usr/share/eyewitness/bin/jquery*]
 # the geckodriver binary is downloaded during build. We can't patch /
 # change it
-spelling-error-in-binary usr/bin/geckodriver *
+spelling-error-in-binary * [usr/bin/geckodriver]
