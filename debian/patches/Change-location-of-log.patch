@@ -7,7 +7,7 @@ Subject: Change location of log
  1 file changed, 2 insertions(+)
 
 diff --git a/Python/EyeWitness.py b/Python/EyeWitness.py
-index 92fd1e1..d4ea4db 100755
+index 51f2000..f91f281 100755
 --- a/Python/EyeWitness.py
 +++ b/Python/EyeWitness.py
 @@ -10,6 +10,8 @@ import sys
