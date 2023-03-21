@@ -1,3 +1,13 @@
+eyewitness (20230309.2-0kali1) kali-dev; urgency=medium
+
+  [ Kali Janitor ]
+  * Update standards version to 4.6.2, no changes needed.
+
+  [ Sophie Brun ]
+  * New upstream version 20230309.2
+
+ -- Sophie Brun <sophie@offensive-security.com>  Tue, 21 Mar 2023 14:36:37 +0100
+
 eyewitness (20221203.1-0kali1) kali-dev; urgency=medium
 
   [ Kali Janitor ]
