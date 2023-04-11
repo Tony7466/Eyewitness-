@@ -1,2 +1,7 @@
 include:
   - https://gitlab.com/kalilinux/tools/kali-ci-pipeline/raw/master/recipes/kali.yml
+
+variables:
+  SALSA_CI_DISABLE_BUILD_ARM64: 1
+  SALSA_CI_DISABLE_BUILD_ARMEL: 1
+  SALSA_CI_DISABLE_BUILD_ARMHF: 1
