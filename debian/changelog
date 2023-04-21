@@ -1,3 +1,14 @@
+eyewitness (20230419.1-0kali1) kali-dev; urgency=medium
+
+  [ Steev Klimaszewski ]
+  * ci: Disable builds on arm architectures
+  * ci: Disable builds on arm architectures, part 2.
+
+  [ Sophie Brun ]
+  * New upstream version 20230419.1
+
+ -- Sophie Brun <sophie@offensive-security.com>  Fri, 21 Apr 2023 09:18:55 +0200
+
 eyewitness (20230309.2-0kali1) kali-dev; urgency=medium
 
   [ Kali Janitor ]
