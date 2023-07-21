@@ -1,2 +1,3 @@
 update-to-python3.patch
 Change-location-of-log.patch
+Use-local-selenium-4.9.patch

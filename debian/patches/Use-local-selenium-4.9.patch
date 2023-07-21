@@ -1,0 +1,24 @@
+From: Sophie Brun <sophie@offensive-security.com>
+Date: Fri, 21 Jul 2023 12:19:50 +0200
+Subject: Use local selenium (4.9)
+
+Use an old and embedded version of selenium
+
+Bug-Upstream: https://github.com/RedSiege/EyeWitness/issues/617
+Bug: https://bugs.kali.org/view.php?id=8394
+---
+ Python/modules/selenium_module.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Python/modules/selenium_module.py b/Python/modules/selenium_module.py
+index afdb39f..5e8e8b4 100644
+--- a/Python/modules/selenium_module.py
++++ b/Python/modules/selenium_module.py
+@@ -11,6 +11,7 @@ try:
+ except:
+     from ssl import SSLError as sslerr
+ 
++sys.path.insert(1, '/usr/share/eyewitness/vendor')
+ try:
+     from selenium import webdriver
+     from selenium.webdriver.firefox.options import Options
