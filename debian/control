@@ -15,7 +15,7 @@ Vcs-Git: https://gitlab.com/kalilinux/packages/eyewitness.git
 Vcs-Browser: https://gitlab.com/kalilinux/packages/eyewitness
 
 Package: eyewitness
-Architecture: amd64 i386
+Architecture: amd64 arm64 i386
 Depends: python3,
          python3-distutils,
          python3-fuzzywuzzy,

@@ -3,3 +3,5 @@ embedded-javascript-library please use libjs-jquery [usr/share/eyewitness/bin/jq
 # the geckodriver binary is downloaded during build. We can't patch /
 # change it
 spelling-error-in-binary * [usr/bin/geckodriver]
+# the geckodriver binary is statically built
+statically-linked-binary [usr/bin/geckodriver]
